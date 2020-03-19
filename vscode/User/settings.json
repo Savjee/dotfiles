@@ -1,0 +1,25 @@
+{
+    "workbench.iconTheme": "vscode-icons",
+    "editor.minimap.enabled": false,
+    "breadcrumbs.enabled": false,
+    "window.zoomLevel": 0,
+    "editor.autoIndent": false,
+    "multiCommand.commands": [
+        {
+            "command": "multiCommand.smallermode",
+            "sequence": [
+                "workbench.action.toggleStatusbarVisibility",
+                "workbench.action.toggleSidebarVisibility",
+                "workbench.action.toggleActivityBarVisibility"
+            ]
+        },
+    ],
+    "workbench.statusBar.visible": true,
+    "workbench.activityBar.visible": true,
+    "editor.cursorStyle": "block",
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "workbench.colorTheme": "Quiet Light",
+    "editor.folding": false,
+    "vsicons.dontShowNewVersionMessage": true
+}
