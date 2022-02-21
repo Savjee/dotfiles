@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VAULT_PATH="~/Workspace/XD Brain/"
+VAULT_PATH="~/Workspace/XDs Brain/"
 cd "$VAULT_PATH"
 
 CHANGES_EXIST="$(git status --porcelain | wc -l)"
