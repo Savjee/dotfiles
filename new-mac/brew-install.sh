@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+brew install node
+
 brew install --cask alfred
 brew install --cask vlc
 brew install --cask sketch 
