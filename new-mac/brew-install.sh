@@ -37,6 +37,7 @@ brew install --cask obs
 brew install --cask omnidisksweeper
 brew install --cask prusaslicer
 brew install --cask slack
+brew install --cask the-unarchiver
 
 brew tap homebrew/cask-fonts
 brew install --cask font-fira-code
