@@ -8,43 +8,52 @@ brew install node
 brew install python
 
 # Apps
-brew install --cask alfred
-brew install --cask vlc
-brew install --cask sketch
-brew install --cask appcleaner
-brew install --cask arq
-brew install --cask blockblock
-brew install --cask cyberduck
-brew install --cask doxie
-brew install --cask gnucash
-brew install --cask imageoptim
-brew install --cask postman
-brew install --cask transmission
-brew install --cask zeplin
-brew install --cask calibre
-brew install --cask the-unarchiver
-brew install --cask visual-studio-code
-brew install --cask spotify
-brew install --cask fork
-brew install --cask google-drive
-brew install --cask rectangle
-brew install --cask istat-menus
-brew install --cask whatsapp
-brew install --cask audacity
-brew install --cask obsidian
-brew install --cask cloudflare-warp
-brew install --cask drawio
-brew install --cask nucleo
-brew install --cask obs
-brew install --cask omnidisksweeper
-brew install --cask prusaslicer
-brew install --cask slack
-brew install --cask netnewswire
-brew install --cask mimestream
-brew install --cask mkvtoolnix
-brew install --cask plex
-brew install --cask thingsmacsandboxhelper
-brew install --cask blender
+apps=(
+    'alfred'
+    'arc'
+    'vlc'
+    'sketch'
+    'appcleaner'
+    'arq'
+    'blockblock'
+    'cyberduck'
+    'doxie'
+    'gnucash'
+    'imageoptim'
+    'postman'
+    'transmission'
+    'zeplin'
+    'calibre'
+    'the-unarchiver'
+    'visual-studio-code'
+    'spotify'
+    'fork'
+    'google-drive'
+    'rectangle'
+    'istat-menus'
+    'whatsapp'
+    'audacity'
+    'obsidian'
+    'cloudflare-warp'
+    'drawio'
+    'nucleo'
+    'obs'
+    'omnidisksweeper'
+    'prusaslicer'
+    'slack'
+    'netnewswire'
+    'mimestream'
+    'mkvtoolnix'
+    'plex'
+    'thingsmacsandboxhelper'
+    'blender'
+)
+
+for i in "${apps[@]}" ; do
+   brew install --cask "${i}"
+done
+
+
 
 # Fonts
 brew tap homebrew/cask-fonts
