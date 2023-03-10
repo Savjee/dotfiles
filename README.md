@@ -2,6 +2,9 @@
 
 ## Manual steps
 
+### Alfred
+Set the preference folder to `linked_files/alfred/`.
+
 ### Configure crontabs
 
 ```
