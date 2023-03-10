@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
+# Install homebrew itself
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+# Programming languages
 brew install node
 brew install python
 
+# Apps
 brew install --cask alfred
 brew install --cask vlc
 brew install --cask sketch
@@ -41,5 +46,7 @@ brew install --cask plex
 brew install --cask thingsmacsandboxhelper
 brew install --cask blender
 
+# Fonts
 brew tap homebrew/cask-fonts
 brew install --cask font-fira-code
+brew install --cask font-jetbrains-mono
