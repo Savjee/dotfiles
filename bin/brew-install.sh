@@ -38,6 +38,7 @@ apps=(
     'postman'
     'prusaslicer'
     'rectangle'
+    'sabnzbd'
     'sketch'
     'slack'
     'spotify'
