@@ -4,7 +4,9 @@
 defaults write com.apple.dock mru-spaces -bool false
 
 # Remove the hiding Dock Delay in OS X
-defaults write com.apple.dock autohide-delay -float 0;killall Dock
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0
+killall Dock
 
 # Disable dashboard
 defaults write com.apple.dashboard mcx-disabled -bool true
