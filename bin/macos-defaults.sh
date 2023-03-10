@@ -21,7 +21,14 @@ defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # Disable “natural” (Lion-style) scrolling
+# Requires a restart!
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+
+# Trackpad: enable tap to click for this user and for the login screen
+# Requires a restart!
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # Finder: show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
