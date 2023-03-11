@@ -14,6 +14,7 @@ apps=(
     'arc'
     'arq'
     'audacity'
+    'autodesk-fusion360'
     'blender'
     'blockblock'
     'calibre'
