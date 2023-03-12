@@ -7,6 +7,9 @@
 brew install node
 brew install python
 
+# Other dependencies
+brew install ffmpeg
+
 # Apps
 apps=(
     'alfred'
