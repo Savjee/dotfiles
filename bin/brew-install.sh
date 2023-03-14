@@ -9,6 +9,7 @@ brew install python
 
 # Other dependencies
 brew install ffmpeg
+brew install yt-dlp
 
 # Apps
 apps=(
