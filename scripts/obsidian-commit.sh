@@ -4,7 +4,7 @@
 # used because the git plugin is single-threaded and locks up Obsidian for 20
 # seconds (while making it unusable).
 # Source: https://medium.com/analytics-vidhya/how-i-put-my-mind-under-version-control-24caea37b8a5
-VAULT_PATH="/Users/Xavier/Workspace/XD Brain/"
+VAULT_PATH="/Users/xavier/Workspace/XD Brain/"
 cd "$VAULT_PATH"
 
 CHANGES_EXIST="$(git status --porcelain | wc -l)"
