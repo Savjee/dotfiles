@@ -10,6 +10,7 @@ brew install python
 # Other dependencies
 brew install ffmpeg
 brew install yt-dlp
+brew install gpg par2  # YouTube archiver
 
 # Apps
 apps=(
