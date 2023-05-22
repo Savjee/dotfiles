@@ -1,5 +1,9 @@
 # dotfiles
 
+**WARNING: THIS REPOSITORY CANNOT BE MADE PUBLIC**
+It contains passwords & tokens that should remain private!
+
+
 ## Manual steps
 
 ### Alfred
