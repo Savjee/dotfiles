@@ -10,10 +10,11 @@ cd "$VAULT_PATH"
 CHANGES_EXIST="$(git status --porcelain | wc -l)"
 
 if [ "$CHANGES_EXIST" -eq 0 ]; then
+    echo "No changes exist, exiting"
     exit 0
 fi
 
-git pull 
+git pull origin master
 git add .
 git commit -q -m "Last Sync: $(date +"%Y-%m-%d %H:%M:%S")"
 git push -q
