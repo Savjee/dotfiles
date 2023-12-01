@@ -7,14 +7,26 @@
 VAULT_PATH="/Users/xavier/Workspace/XD Brain/"
 cd "$VAULT_PATH"
 
-CHANGES_EXIST="$(git status --porcelain | wc -l)"
+#CHANGES_EXIST="$(git status --porcelain | wc -l)"
 
-if [ "$CHANGES_EXIST" -eq 0 ]; then
-    echo "No changes exist, exiting"
-    exit 0
-fi
+#if [ "$CHANGES_EXIST" -eq 0 ]; then
+#    echo "No changes exist, exiting"
+#    exit 0
+#fi
 
-git pull origin master
-git add .
-git commit -q -m "Last Sync: $(date +"%Y-%m-%d %H:%M:%S")"
-git push -q
+git diff-index --quiet HEAD -- || {
+    # Add all changes to the staging area
+    git add .
+
+    # Commit the changes with a generic message. Customize the message if needed.
+    git commit -m "Auto commit on $(date +"%Y-%m-%d %H:%M:%S")"
+
+    # Push the changes to the origin
+    git push origin
+}
+
+# #git pull origin master
+# git add .
+# git commit -q -m "Last Sync: $(date +"%Y-%m-%d %H:%M:%S")"
+# git push
+# git push
