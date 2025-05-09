@@ -1,0 +1,7 @@
+theme = dark:flexoki-dark,light:flexoki-light
+
+font-family = "CaskaydiaMono NFM Regular"
+font-size = 14
+
+cursor-style = "block"
+cursor-style-blink = "false"

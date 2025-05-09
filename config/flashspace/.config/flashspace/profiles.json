@@ -1,0 +1,79 @@
+{
+  "profiles" : [
+    {
+      "id" : "4F1FBC51-559A-44B3-9E67-15C4B50FA2AC",
+      "name" : "Default",
+      "workspaces" : [
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "company.thebrowser.Browser",
+              "iconPath" : "/Applications/Arc.app/Contents/Resources/AppIcon.icns",
+              "name" : "Arc"
+            },
+            {
+              "bundleIdentifier" : "app.zen-browser.zen",
+              "iconPath" : "/Applications/Zen Browser.app/Contents/Resources/firefox.icns",
+              "name" : "Zen Browser"
+            },
+            {
+              "bundleIdentifier" : "com.apple.Safari",
+              "iconPath" : "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/Resources/AppIcon.icns",
+              "name" : "Safari"
+            }
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "7EF43629-46C7-4B83-9306-CBB4B618721F",
+          "name" : "Web",
+          "shortcut" : "cmd+&",
+          "symbolIconName" : "network"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.microsoft.VSCode",
+              "iconPath" : "/Applications/Visual Studio Code.app/Contents/Resources/Code.icns",
+              "name" : "Code"
+            },
+            {
+              "bundleIdentifier" : "com.todesktop.230313mzl4w4u92",
+              "iconPath" : "/Applications/Cursor.app/Contents/Resources/Cursor.icns",
+              "name" : "Cursor"
+            }
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "2A0A8AEE-E92A-4584-9D37-0AF962DDD396",
+          "name" : "Coding",
+          "shortcut" : "cmd+é",
+          "symbolIconName" : "wrench.adjustable"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.mitchellh.ghostty",
+              "iconPath" : "/Applications/Ghostty.app/Contents/Resources/AppIcon.icns",
+              "name" : "Ghostty"
+            },
+            {
+              "bundleIdentifier" : "com.googlecode.iterm2",
+              "iconPath" : "/Applications/iTerm.app/Contents/Resources/AppIcon.icns",
+              "name" : "iTerm2"
+            }
+          ],
+          "display" : "Built-in Retina Display",
+          "id" : "4D6833A1-FE7E-499D-B5BA-8EFBB017CFC3",
+          "name" : "Terminal",
+          "shortcut" : "cmd+\"",
+          "symbolIconName" : "apple.terminal"
+        }
+      ]
+    },
+    {
+      "id" : "45EEB0D8-573F-4C46-A6A4-909DBC064FA6",
+      "name" : "Disabled",
+      "workspaces" : [
+
+      ]
+    }
+  ]
+}
