@@ -1,0 +1,6 @@
+gui:
+  showCommandLog: false
+
+# Let Homebrew handle updates
+update:
+  method: never 

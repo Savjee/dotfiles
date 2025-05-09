@@ -1,0 +1,23 @@
+ui {
+    pane_frames {
+        hide_session_name true
+    }
+}
+ 
+// The name of the default layout to load on startup
+default_layout "compact"
+ 
+// Toggle having pane frames around the panes
+pane_frames false
+ 
+// Choose what to do when zellij receives SIGTERM, SIGINT, SIGQUIT or SIGHUP
+// eg. when terminal window with an active zellij session is closed
+// (Requires restart)
+// Options:
+//   - detach (Default)
+//   - quit
+// 
+on_force_close "quit"
+ 
+// Whether to show tips on startup
+show_startup_tips false
