@@ -7,35 +7,31 @@ if ! command -v brew &> /dev/null; then
 fi
 
 # Install brew packages
-packages=(
-    # Core utilities
-    'stow'
-    'rclone'
-    'curl'
-    'wget'
-    'htop'
+echo "Installing brew packages..."
+while IFS= read -r package || [ -n "$package" ]; do
+    # Skip empty lines and comments
+    if [ ! -z "$package" ] && [[ ! "$package" =~ ^[[:space:]]*# ]]; then
+        brew install "${package}"
+    fi
+done < brew-packages.txt
 
-    # Media tools
-    'ffmpeg'
-    'yt-dlp'
+# Install brew casks from file
+echo "Installing brew casks..."
+while IFS= read -r cask || [ -n "$cask" ]; do
+    # Skip empty lines and comments
+    if [ ! -z "$cask" ] && [[ ! "$cask" =~ ^[[:space:]]*# ]]; then
+        brew install --cask "${cask}"
+    fi
+done < brew-casks.txt
 
-    # YouTube archiver tools
-    'gpg'
-    'par2'
-
-    # Development tools
-    'fzf'
-    'zellij'
-    'composer'
-    'lazydocker'
-    'lazygit'
-    'php'
-    'node'
-)
-
-for package in "${packages[@]}"; do
-    brew install "${package}"
-done
+# Install apps from App Store
+echo "Installing app store apps via brew..."
+while IFS= read -r masId || [ -n "$cask" ]; do
+    # Skip empty lines and comments
+    if [ ! -z "$masId" ] && [[ ! "$masId" =~ ^[[:space:]]*# ]]; then
+        mas install "${masId}"
+    fi
+done < brew-mas.txt
 
 # Check if stow is installed
 if ! command -v stow &> /dev/null; then
