@@ -3,6 +3,12 @@
 # When Ctrl+C is pressed, exit the entire script instead of stopping the current
 # command in a loop
 trap 'echo -e "\nScript interrupted. Exiting..."; exit 1' INT
+
+# Initialize and fetch git submodules
+echo "Initializing git submodules..."
+git submodule init
+git submodule update
+
 # Install Homebrew
 if ! command -v brew &> /dev/null; then
     echo "Installing Homebrew..."
