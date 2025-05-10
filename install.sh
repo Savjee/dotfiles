@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# When Ctrl+C is pressed, exit the entire script instead of stopping the current
+# command in a loop
+trap 'echo -e "\nScript interrupted. Exiting..."; exit 1' INT
 # Install Homebrew
 if ! command -v brew &> /dev/null; then
     echo "Installing Homebrew..."
