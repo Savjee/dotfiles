@@ -1,8 +1,15 @@
 # dotfiles
 
-**WARNING: THIS REPOSITORY CANNOT BE MADE PUBLIC**
-It contains passwords & tokens that should remain private!
+My personal configuration for macOS.
 
+## Automated steps
+
+Run `bash install.sh --all` to install everything:
+
+* macOS defaults
+* Brew packages, casks, Mac App Store apps
+* Link dotfiles with Stow
+* 
 
 ## Manual steps
 
