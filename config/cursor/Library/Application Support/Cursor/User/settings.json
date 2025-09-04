@@ -1,0 +1,126 @@
+{
+    "telemetry.telemetryLevel": "off",
+
+
+    // --------------------------- ESP-IDF related ---------------------------
+    "idf.espIdfPath": "/Users/xavier/esp/esp-idf",
+    "idf.pythonBinPath": "/Users/xavier/.espressif/python_env/idf4.4_py3.11_env/bin/python",
+    "idf.toolsPath": "/Users/xavier/.espressif",
+    "idf.customExtraPaths": "/Users/xavier/.espressif/tools/xtensa-esp-elf-gdb/11.2_20220823/xtensa-esp-elf-gdb/bin:/Users/xavier/.espressif/tools/riscv32-esp-elf-gdb/11.2_20220823/riscv32-esp-elf-gdb/bin:/Users/xavier/.espressif/tools/xtensa-esp32-elf/esp-2021r2-patch5-8.4.0/xtensa-esp32-elf/bin:/Users/xavier/.espressif/tools/xtensa-esp32s2-elf/esp-2021r2-patch5-8.4.0/xtensa-esp32s2-elf/bin:/Users/xavier/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-patch5-8.4.0/xtensa-esp32s3-elf/bin:/Users/xavier/.espressif/tools/riscv32-esp-elf/esp-2021r2-patch5-8.4.0/riscv32-esp-elf/bin:/Users/xavier/.espressif/tools/esp32ulp-elf/2.35_20220830/esp32ulp-elf/bin:/Users/xavier/.espressif/tools/cmake/3.23.1/CMake.app/Contents/bin:/Users/xavier/.espressif/tools/openocd-esp32/v0.11.0-esp32-20221026/openocd-esp32/bin:/Users/xavier/.espressif/tools/ninja/1.10.2",
+    "idf.customExtraVars": {
+        "OPENOCD_SCRIPTS": "/Users/xavier/.espressif/tools/openocd-esp32/v0.11.0-esp32-20221026/openocd-esp32/share/openocd/scripts"
+    },
+    "idf.gitPath": "git",
+    "idf.pythonInstallPath": "/opt/homebrew/bin/python3",
+    "idf.hasWalkthroughBeenShown": true,
+
+    
+
+    "breadcrumbs.enabled": false,
+
+    "files.exclude": {
+        "**/__pycache__": true,
+        "!**/database.sqlite": false,
+        "!storage/logs/laravel.log": false,
+    },
+
+    "search.quickOpen.includeHistory": false,
+    
+    "security.workspace.trust.untrustedFiles": "open",
+    "security.workspace.trust.enabled": false,
+
+    // ------------------------------ Workbench --------------------------------
+    "workbench.editor.limit.enabled": true,
+    "workbench.editor.limit.value": 7,
+    "workbench.editor.tabSizing": "shrink",
+    "workbench.preferredLightColorTheme": "Flexoki Light Red",
+    "workbench.sideBar.location": "right",
+    "workbench.iconTheme": "catppuccin-latte",
+    "workbench.tree.indent": 12,
+    "workbench.startupEditor": "none",
+
+
+    "window.autoDetectColorScheme": true,
+    "window.titleBarStyle": "native",
+    "window.commandCenter": false,
+
+    // ------------------------------ Explorer --------------------------------
+    "explorer.openEditors.visible": 1,
+    "explorer.openEditors.minVisible": 1,
+    "explorer.fileNesting.patterns": {
+        "*.ts": "${capture}.js",
+        "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+        "*.jsx": "${capture}.js",
+        "*.tsx": "${capture}.ts",
+        "tsconfig.json": "tsconfig.*.json",
+        "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb",
+        "*.sqlite": "${capture}.${extname}-*",
+        "*.db": "${capture}.${extname}-*",
+        "*.sqlite3": "${capture}.${extname}-*",
+        "*.db3": "${capture}.${extname}-*",
+        "*.sdb": "${capture}.${extname}-*",
+        "*.s3db": "${capture}.${extname}-*"
+    },
+    "explorer.autoRevealExclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/vendor": true
+    },
+
+    // ------------------------------ Vim mode ------------------------------
+    // Enable relative line numbers
+    "vim.smartRelativeLine": true,
+    "vim.foldfix": true,
+
+
+    // ------------------------------ PHP ------------------------------------
+    "intelephense.files.associations": [
+        "*.php",
+        "*.phtml"
+    ],
+    "php.suggest.basic": false,
+
+    // ------------------------------ TypeScript ------------------------------
+    "typescript.updateImportsOnFileMove.enabled": "always",
+
+    "files.associations": {
+        "*.blade.php": "html",
+        "*.module": "php"
+    },
+
+
+    "workbench.activityBar.location": "bottom",
+    "workbench.layoutControl.enabled": false,
+    "workbench.colorCustomizations": {
+        "[Quiet Light]": {
+            "statusBar.background": "#EDEDF5",
+            "statusBar.foreground": "#705697"
+        },
+    },
+
+    "window.density.editorTabHeight": "compact",
+    "extensions.ignoreRecommendations": true,
+
+    "scm.diffDecorations": "gutter",
+    "diffEditor.codeLens": true,
+
+    "editor.fontFamily": "JetBrainsMono Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace",
+    "editor.peekWidgetDefaultFocus": "editor",
+    "editor.guides.highlightActiveIndentation": "always",
+    "editor.cursorBlinking": "solid",
+    "editor.glyphMargin": false,
+    "editor.minimap.enabled": false,
+    "editor.rulers": [
+        80
+    ],
+    "editor.bracketPairColorization.enabled": false,
+    "editor.lineHeight": 2.5,
+    "editor.fontLigatures": true,
+    "editor.scrollbar.verticalScrollbarSize": 6,
+    "editor.scrollbar.horizontalScrollbarSize": 4,
+
+    "terminal.integrated.tabs.location": "left",
+    "terminal.integrated.tabs.enabled": false,
+    "terminal.integrated.enablePersistentSessions": false,
+    "window.customTitleBarVisibility": "never",
+}
