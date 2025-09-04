@@ -5,3 +5,24 @@ font-size = 14
 
 cursor-style = "block"
 cursor-style-blink = "false"
+
+#keybind = trigger=action
+
+# ------------- Zellij-style keybindings ---------------
+# Open new pane on the right
+keybind = ctrl+p>n=new_split:right
+
+# Switch to left pane 
+keybind = ctrl+p>h=goto_split:left
+
+# Switch to right pane
+keybind = ctrl+p>l=goto_split:right
+
+# Create new tab
+keybind = ctrl+t>n=new_tab
+
+# Switch to tab left
+keybind = ctrl+t>h=previous_tab
+
+# Switch to tab
+keybind = ctrl+t>l=next_tab
