@@ -118,5 +118,11 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 # Auto start Zellij when opening a new terminal that's not already running Zellij
 if [[ -z "$ZELLIJ" ]]; then
-  zellij --layout compact
-fi
+  #zellij --layout compact
+fi 
+
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+alias artisan="php artisan"
+alias lg="lazygit"
+source /Users/xavier/.config/op/plugins.sh
