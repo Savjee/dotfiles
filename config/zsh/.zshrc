@@ -120,4 +120,14 @@ export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 alias artisan="php artisan"
 alias lg="lazygit"
+
+# Modern CLI tool aliases (conditional on installation)
+if command -v eza &> /dev/null; then
+    alias ls="eza --icons --group-directories-first"
+fi
+
+if command -v bat &> /dev/null; then
+    alias cat="bat --paging=never --style=plain"
+fi
+
 source /Users/xavier/.config/op/plugins.sh
