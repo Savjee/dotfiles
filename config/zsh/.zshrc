@@ -116,11 +116,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Set Lazygit's config directory to something sensible
 export XDG_CONFIG_HOME="$HOME/.config"
 
-# Auto start Zellij when opening a new terminal that's not already running Zellij
-if [[ -z "$ZELLIJ" ]]; then
-  #zellij --layout compact
-fi 
-
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 alias artisan="php artisan"
