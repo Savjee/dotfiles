@@ -131,3 +131,12 @@ if command -v bat &> /dev/null; then
 fi
 
 source /Users/xavier/.config/op/plugins.sh
+
+# Zoxide
+eval "$(zoxide init zsh)"
+
+# Starship prompt
+eval "$(starship init zsh)"
+
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"

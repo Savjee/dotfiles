@@ -14,8 +14,6 @@
     "idf.pythonInstallPath": "/opt/homebrew/bin/python3",
     "idf.hasWalkthroughBeenShown": true,
 
-    
-
     "breadcrumbs.enabled": false,
 
     "files.exclude": {
@@ -31,18 +29,17 @@
 
     // ------------------------------ Workbench --------------------------------
     "workbench.editor.limit.enabled": true,
-    "workbench.editor.limit.value": 7,
+    "workbench.editor.limit.value": 5,
     "workbench.editor.tabSizing": "shrink",
     "workbench.preferredLightColorTheme": "Flexoki Light Red",
-    "workbench.sideBar.location": "right",
-    "workbench.iconTheme": "catppuccin-latte",
-    "workbench.tree.indent": 12,
     "workbench.startupEditor": "none",
 
 
+    "workbench.editorAssociations": {
+        "*.svg": "default"
+    },
+
     "window.autoDetectColorScheme": true,
-    "window.titleBarStyle": "native",
-    "window.commandCenter": false,
 
     // ------------------------------ Explorer --------------------------------
     "explorer.openEditors.visible": 1,
@@ -98,7 +95,7 @@
         },
     },
 
-    "window.density.editorTabHeight": "compact",
+    "window.density.editorTabHeight": "default",
     "extensions.ignoreRecommendations": true,
 
     "scm.diffDecorations": "gutter",
@@ -108,7 +105,6 @@
     "editor.peekWidgetDefaultFocus": "editor",
     "editor.guides.highlightActiveIndentation": "always",
     "editor.cursorBlinking": "solid",
-    "editor.glyphMargin": false,
     "editor.minimap.enabled": false,
     "editor.rulers": [
         80
@@ -122,5 +118,41 @@
     "terminal.integrated.tabs.location": "left",
     "terminal.integrated.tabs.enabled": false,
     "terminal.integrated.enablePersistentSessions": false,
+    "editor.stickyScroll.enabled": false,
+    "intelephense.phpdoc.returnVoid": false,
+    "git.blame.editorDecoration.enabled": false,
     "window.customTitleBarVisibility": "never",
+    "editor.glyphMargin": false,
+    "workbench.iconTheme": null,
+    "[php]": {
+        "editor.defaultFormatter": "laravel.vscode-laravel"
+    },
+    "git.blame.statusBarItem.enabled": false,
+    "window.titleBarStyle": "native",
+    "custom-ui-style.webview.enable": false,
+    "custom-ui-style.webview.removeCSP": false,
+    "custom-ui-style.extensions.enable": false,
+    "custom-ui-style.electron": {
+        "frame": false,
+    },
+    "editor.inlayHints.enabled": "off",
+    "editor.gotoLocation.multipleDefinitions": "gotoAndPeek",
+    "editor.gotoLocation.multipleDeclarations": "gotoAndPeek",
+    "editor.gotoLocation.multipleImplementations": "gotoAndPeek",
+    "workbench.sideBar.location": "right",
+    "githubPullRequests.codingAgent.enabled": false,
+    "githubPullRequests.experimental.chat": false,
+    "githubPullRequests.codingAgent.uiIntegration": false,
+    "githubIssues.assignWhenWorking": false,
+    "githubPullRequests.codingAgent.autoCommitAndPush": false,
+    "githubPullRequests.codingAgent.promptForConfirmation": false,
+    "Laravel.artisanMake.commandPalette": false,
+    "workbench.settings.enableNaturalLanguageSearch": false,
+    "files.watcherExclude": {
+        "**/build/**": true,
+        "**/dist/**": true,
+        "**/node_modules/**": true,
+        "**/public/build/**": true,
+        "**/vendor/**": true
+    },
 }
