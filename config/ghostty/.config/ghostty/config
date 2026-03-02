@@ -1,4 +1,6 @@
-theme = dark:flexoki-dark,light:flexoki-light
+theme = dark:Flexoki Dark,light:Flexoki Light
+background-opacity = 0.95
+#background-blur = 1
 
 font-family = "CaskaydiaMono NFM Regular"
 font-size = 14
@@ -6,17 +8,20 @@ font-size = 14
 cursor-style = "block"
 cursor-style-blink = "false"
 
+macos-titlebar-style = "hidden"
+window-padding-y = 8
+
 #keybind = trigger=action
 
 # ------------- Zellij-style keybindings ---------------
 # Open new pane on the right
-keybind = ctrl+p>n=new_split:right
+#keybind = ctrl+p>n=new_split:right
 
 # Switch to left pane 
-keybind = ctrl+p>h=goto_split:left
+#keybind = ctrl+p>h=goto_split:left
 
 # Switch to right pane
-keybind = ctrl+p>l=goto_split:right
+#keybind = ctrl+p>l=goto_split:right
 
 # Create new tab
 keybind = ctrl+t>n=new_tab
