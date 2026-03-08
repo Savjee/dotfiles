@@ -11,6 +11,10 @@ cursor-style-blink = "false"
 macos-titlebar-style = "hidden"
 window-padding-y = 8
 
+# Use tip
+auto-update-channel = tip
+auto-update = download
+
 #keybind = trigger=action
 
 # ------------- Zellij-style keybindings ---------------
