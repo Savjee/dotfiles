@@ -86,8 +86,7 @@
     },
 
 
-    "workbench.activityBar.location": "bottom",
-    "workbench.layoutControl.enabled": false,
+    "workbench.activityBar.location": "hidden",
     "workbench.colorCustomizations": {
         "[Quiet Light]": {
             "statusBar.background": "#EDEDF5",
@@ -115,13 +114,16 @@
     "editor.scrollbar.verticalScrollbarSize": 6,
     "editor.scrollbar.horizontalScrollbarSize": 4,
 
+    "[markdown]": {
+        "editor.wordWrap": "wordWrapColumn"
+    },
+
     "terminal.integrated.tabs.location": "left",
     "terminal.integrated.tabs.enabled": false,
     "terminal.integrated.enablePersistentSessions": false,
     "editor.stickyScroll.enabled": false,
     "intelephense.phpdoc.returnVoid": false,
     "git.blame.editorDecoration.enabled": false,
-    "window.customTitleBarVisibility": "never",
     "editor.glyphMargin": false,
     "workbench.iconTheme": null,
     "[php]": {
@@ -146,6 +148,7 @@
     "githubIssues.assignWhenWorking": false,
     "githubPullRequests.codingAgent.autoCommitAndPush": false,
     "githubPullRequests.codingAgent.promptForConfirmation": false,
+    "window.commandCenter": false,
     "Laravel.artisanMake.commandPalette": false,
     "workbench.settings.enableNaturalLanguageSearch": false,
     "files.watcherExclude": {
@@ -155,4 +158,10 @@
         "**/public/build/**": true,
         "**/vendor/**": true
     },
+    "workbench.layoutControl.enabled": false,
+    "zenMode.fullScreen": false,
+    "zenMode.centerLayout": false,
+    "zenMode.hideStatusBar": false,
+    "glspc.serverCommand": "/Users/xavier/Downloads/phpantom_lsp",
+    "glspc.languageId": "php",
 }
