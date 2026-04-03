@@ -3,6 +3,9 @@
 /**
  * Syncs Hyprnote meetings to Obsidian.
  * Creates a .synced-to-obsidian file in each meeting folder to track synced meetings.
+ *
+ * Skips sessions until Hyprnote has written both _summary.md and XD Meeting.md, which
+ * indicates the meeting is finished and AI output is present—avoids syncing in-progress calls.
  */
 
 import { readdir, readFile, writeFile, access } from "fs/promises";
@@ -77,11 +80,16 @@ async function syncMeeting(sessionDir) {
     return null;
   }
 
+  const summaryPath = join(sessionDir, "_summary.md");
+  const aiSummaryPath = join(sessionDir, "XD Meeting.md");
+  if (!(await fileExists(summaryPath)) || !(await fileExists(aiSummaryPath))) {
+    return null;
+  }
+
   const meta = JSON.parse(await readFile(metaPath, "utf8"));
   const transcript = await transcriptToPlainText(transcriptPath);
 
   const memoPath = join(sessionDir, "_memo.md");
-  const aiSummaryPath = join(sessionDir, "XD Meeting.md");
 
   let personalNotes = "";
   if (await fileExists(memoPath)) {
@@ -107,13 +115,12 @@ async function syncMeeting(sessionDir) {
   const aiSummarySection = aiSummary.trim() ? `# AI Summary\n\n${aiSummary}\n\n` : "";
 
   const content = `---
-tags:
-  - MeetingNotes
+categories: "[[Meetings]]"
+date: "[[${dateStr}]]"
+companies: []
+people: []
+projects: []
 ---
-
-Meeting on [[${dateStr}]]
-Ref: 
-Attendees: 
 
 ${personalNotesSection}${aiSummarySection}# Transcript
 
