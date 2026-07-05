@@ -8,13 +8,12 @@ Run `bash install.sh --all` to install everything:
 
 * macOS defaults
 * Brew packages, casks, Mac App Store apps
-* Link dotfiles with Stow
-* 
+* Link dotfiles with Stow (from `config/` only; `private/` is a submodule for sensitive config)
 
 ## Manual steps
 
 ### Alfred
-Set the preference folder to `linked_files/alfred/`.
+Point Alfred’s preference folder to `private/Alfred.alfredpreferences` (or your synced path after linking the repo).
 
 ### Configure crontabs
 
