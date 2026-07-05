@@ -3,19 +3,6 @@
 
 
     // --------------------------- ESP-IDF related ---------------------------
-    "idf.espIdfPath": "/Users/xavier/esp/esp-idf",
-    "idf.pythonBinPath": "/Users/xavier/.espressif/python_env/idf4.4_py3.11_env/bin/python",
-    "idf.toolsPath": "/Users/xavier/.espressif",
-    "idf.customExtraPaths": "/Users/xavier/.espressif/tools/xtensa-esp-elf-gdb/11.2_20220823/xtensa-esp-elf-gdb/bin:/Users/xavier/.espressif/tools/riscv32-esp-elf-gdb/11.2_20220823/riscv32-esp-elf-gdb/bin:/Users/xavier/.espressif/tools/xtensa-esp32-elf/esp-2021r2-patch5-8.4.0/xtensa-esp32-elf/bin:/Users/xavier/.espressif/tools/xtensa-esp32s2-elf/esp-2021r2-patch5-8.4.0/xtensa-esp32s2-elf/bin:/Users/xavier/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-patch5-8.4.0/xtensa-esp32s3-elf/bin:/Users/xavier/.espressif/tools/riscv32-esp-elf/esp-2021r2-patch5-8.4.0/riscv32-esp-elf/bin:/Users/xavier/.espressif/tools/esp32ulp-elf/2.35_20220830/esp32ulp-elf/bin:/Users/xavier/.espressif/tools/cmake/3.23.1/CMake.app/Contents/bin:/Users/xavier/.espressif/tools/openocd-esp32/v0.11.0-esp32-20221026/openocd-esp32/bin:/Users/xavier/.espressif/tools/ninja/1.10.2",
-    "idf.customExtraVars": {
-        "OPENOCD_SCRIPTS": "/Users/xavier/.espressif/tools/openocd-esp32/v0.11.0-esp32-20221026/openocd-esp32/share/openocd/scripts"
-    },
-    "idf.gitPath": "git",
-    "idf.pythonInstallPath": "/opt/homebrew/bin/python3",
-    "idf.hasWalkthroughBeenShown": true,
-
-    "breadcrumbs.enabled": false,
-
     "files.exclude": {
         "**/__pycache__": true,
         "!**/database.sqlite": false,
@@ -125,7 +112,6 @@
     "intelephense.phpdoc.returnVoid": false,
     "git.blame.editorDecoration.enabled": false,
     "editor.glyphMargin": false,
-    "workbench.iconTheme": null,
     "[php]": {
         "editor.defaultFormatter": "laravel.vscode-laravel"
     },
@@ -138,8 +124,8 @@
         "frame": false,
     },
     "editor.inlayHints.enabled": "off",
-    "editor.gotoLocation.multipleDefinitions": "gotoAndPeek",
-    "editor.gotoLocation.multipleDeclarations": "gotoAndPeek",
+    "editor.gotoLocation.multipleDefinitions": "goto",
+    "editor.gotoLocation.multipleDeclarations": "goto",
     "editor.gotoLocation.multipleImplementations": "gotoAndPeek",
     "workbench.sideBar.location": "right",
     "githubPullRequests.codingAgent.enabled": false,
@@ -164,4 +150,22 @@
     "zenMode.hideStatusBar": false,
     "glspc.serverCommand": "/Users/xavier/Downloads/phpantom_lsp",
     "glspc.languageId": "php",
+    "workbench.iconTheme": "catppuccin-latte",
+    "breadcrumbs.symbolPath": "last",
+    "git.openRepositoryInParentFolders": "always",
+    "cursor.general.fontSmoothingAntialiased": true,
+    "idf.hasWalkthroughBeenShown": true,
+    "idf.showOnboardingOnInit": false,
+    "idf.gitPath": "/opt/homebrew/bin/git",
+    "idf.eimIdfJsonPath": "/Users/xavier/.espressif/tools/eim_idf.json",
+    "idf.currentSetup": "esp-idf-703ed58d155646269fa8d7b813aa0bdc",
+    "idf.eimExecutableArgs": [
+        "wizard",
+        "--idf-features ide"
+    ],
+    "terraform.languageServer.rootModules": [
+        "terraform"
+    ],
+    "cursor.composer.editorConversationDensity": "detailed",
+    "vim.disableExtension": true
 }
