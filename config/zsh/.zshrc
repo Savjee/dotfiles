@@ -132,11 +132,21 @@ fi
 
 source /Users/xavier/.config/op/plugins.sh
 
-# Zoxide
-eval "$(zoxide init zsh)"
-
 # Starship prompt
 eval "$(starship init zsh)"
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/xavier/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# Zoxide
+eval "$(zoxide init zsh)"
+
+export PATH="/opt/homebrew/opt/ffmpeg-full/bin:$PATH"
