@@ -4,8 +4,8 @@
  * Syncs Hyprnote meetings to Obsidian.
  * Creates a .synced-to-obsidian file in each meeting folder to track synced meetings.
  *
- * Skips sessions until Hyprnote has written both _summary.md and XD Meeting.md, which
- * indicates the meeting is finished and AI output is present—avoids syncing in-progress calls.
+ * Skips sessions until XD Meeting.md exists (Hyprnote’s AI summary), so in-progress meetings
+ * are not exported before that file is written.
  */
 
 import { readdir, readFile, writeFile, access } from "fs/promises";
@@ -80,9 +80,8 @@ async function syncMeeting(sessionDir) {
     return null;
   }
 
-  const summaryPath = join(sessionDir, "_summary.md");
   const aiSummaryPath = join(sessionDir, "XD Meeting.md");
-  if (!(await fileExists(summaryPath)) || !(await fileExists(aiSummaryPath))) {
+  if (!(await fileExists(aiSummaryPath))) {
     return null;
   }
 
@@ -96,10 +95,9 @@ async function syncMeeting(sessionDir) {
     personalNotes = indentHeaders(stripFrontmatter(await readFile(memoPath, "utf8"))).replace(/&nbsp;/g, " ");
   }
 
-  let aiSummary = "";
-  if (await fileExists(aiSummaryPath)) {
-    aiSummary = indentHeaders(stripFrontmatter(await readFile(aiSummaryPath, "utf8")));
-  }
+  const aiSummary = indentHeaders(
+    stripFrontmatter(await readFile(aiSummaryPath, "utf8"))
+  );
 
   const created = new Date(meta.created_at ?? meta.id);
   const dateStr = created.toISOString().slice(0, 10);
