@@ -13,7 +13,7 @@ window-padding-y = 8
 
 # Use tip
 auto-update-channel = tip
-auto-update = download
+auto-update = off
 
 #keybind = trigger=action
 
