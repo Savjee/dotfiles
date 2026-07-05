@@ -9,3 +9,6 @@ git:
   # Don't automatically fetch because this prompts me to unlock
   # my 1password vault all the time. I'll do it manually.
   autoFetch: false
+
+services:
+  "github.com": "github:github.com"
