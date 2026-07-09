@@ -68,7 +68,10 @@ install_dotfiles() {
 
 # Install macOS defaults
 install_defaults() {
-    process_file "bin/macos-defaults.sh" "bash -c {}" "{}"
+    local script_dir
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    echo "Applying macOS defaults..."
+    bash "$script_dir/bin/macos-defaults.sh"
 }
 
 # Install Homebrew if not present
@@ -121,6 +124,7 @@ else
                 install_brew_casks
                 install_mas_apps
                 install_dotfiles
+                install_defaults
                 ;;
             *)
                 echo "Unknown option: $1"
