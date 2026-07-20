@@ -118,7 +118,20 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 
-alias artisan="php artisan"
+# Artisan helper + command completion (alias breaks zsh completion → filenames)
+unalias artisan 2>/dev/null
+artisan() {
+  local dir=$PWD
+  while [[ $dir != / ]]; do
+    if [[ -x $dir/artisan || -f $dir/artisan ]]; then
+      php "$dir/artisan" "$@"
+      return $?
+    fi
+    dir=${dir:h}
+  done
+  print -u2 "No artisan found above $PWD"
+  return 1
+}
 alias lg="lazygit"
 
 # Modern CLI tool aliases (conditional on installation)
@@ -133,6 +146,28 @@ fi
 source /Users/xavier/.config/op/plugins.sh
 
 # Starship prompt
+_starship_palette_mode=""
+_starship_set_palette() {
+  local mode palette
+
+  if defaults read -g AppleInterfaceStyle &>/dev/null; then
+    mode="dark"
+    palette="prompt_dark"
+  else
+    mode="light"
+    palette="prompt_light"
+  fi
+
+  [[ "$mode" == "$_starship_palette_mode" ]] && return
+  _starship_palette_mode="$mode"
+
+  if ! grep -q "^palette = \"$palette\"" "$HOME/.config/starship.toml"; then
+    sed -i '' "s/^palette = .*/palette = \"$palette\"/" "$HOME/.config/starship.toml"
+  fi
+}
+
+_starship_set_palette
+precmd_functions+=(_starship_set_palette)
 eval "$(starship init zsh)"
 
 export PATH="$HOME/.local/bin:$PATH"
@@ -150,3 +185,19 @@ esac
 eval "$(zoxide init zsh)"
 
 export PATH="/opt/homebrew/opt/ffmpeg-full/bin:$PATH"
+
+# ESP-IDF v4.4.8 (legacy manual install; EIM no longer supports this version)
+get_idf448() {
+  export PATH="/opt/homebrew/opt/python@3.11/libexec/bin:$PATH"
+  export CMAKE_POLICY_VERSION_MINIMUM=3.5
+  . "$HOME/esp/esp-idf-v4.4.8/export.sh"
+}
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit && compinit
+compdef _artisan artisan
+
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'; fi
+
+# direnv (loads flake.nix / .envrc on cd)
+eval "$(direnv hook zsh)"
