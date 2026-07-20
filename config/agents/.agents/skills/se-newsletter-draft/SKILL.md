@@ -11,7 +11,7 @@ This skill supports writing; it does not choose the article lineup or edit the n
 
 ## Required companion voice
 
-Load the `xavier-newsletter-voice` skill before drafting if it is installed. Follow its style and integrity rules.
+Load the `se-newsletter-tone-of-voice` skill before drafting if it is installed. Follow its style and integrity rules.
 
 If it is unavailable, use this fallback:
 
