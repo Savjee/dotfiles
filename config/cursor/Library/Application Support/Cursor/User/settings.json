@@ -10,7 +10,7 @@
     },
 
     "search.quickOpen.includeHistory": false,
-    
+
     "security.workspace.trust.untrustedFiles": "open",
     "security.workspace.trust.enabled": false,
 
@@ -93,7 +93,10 @@
     "editor.cursorBlinking": "solid",
     "editor.minimap.enabled": false,
     "editor.rulers": [
-        80
+        {
+            "column": 80,
+            "color": "#eae9e9"
+        }
     ],
     "editor.bracketPairColorization.enabled": false,
     "editor.lineHeight": 2.5,
@@ -158,14 +161,21 @@
     "idf.showOnboardingOnInit": false,
     "idf.gitPath": "/opt/homebrew/bin/git",
     "idf.eimIdfJsonPath": "/Users/xavier/.espressif/tools/eim_idf.json",
-    "idf.currentSetup": "esp-idf-703ed58d155646269fa8d7b813aa0bdc",
     "idf.eimExecutableArgs": [
         "wizard",
         "--idf-features ide"
     ],
+    "idf.customExtraVars": {
+        "IDF_PATH": "${env:HOME}/esp/esp-idf-v4.4.8",
+        "IDF_TOOLS_PATH": "${env:HOME}/.espressif",
+        "IDF_PYTHON_ENV_PATH": "${env:HOME}/.espressif/python_env/idf4.4_py3.11_env",
+        "CMAKE_POLICY_VERSION_MINIMUM": "3.5",
+        "PATH": "${env:HOME}/.espressif/tools/xtensa-esp-elf-gdb/11.2_20220823/xtensa-esp-elf-gdb/bin:${env:HOME}/.espressif/tools/riscv32-esp-elf-gdb/11.2_20220823/riscv32-esp-elf-gdb/bin:${env:HOME}/.espressif/tools/xtensa-esp32-elf/esp-2021r2-patch5-8.4.0/xtensa-esp32-elf/bin:${env:HOME}/.espressif/tools/xtensa-esp32s2-elf/esp-2021r2-patch5-8.4.0/xtensa-esp32s2-elf/bin:${env:HOME}/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-patch5-8.4.0/xtensa-esp32s3-elf/bin:${env:HOME}/.espressif/tools/riscv32-esp-elf/esp-2021r2-patch5-8.4.0/riscv32-esp-elf/bin:${env:HOME}/.espressif/tools/esp32ulp-elf/2.35_20220830/esp32ulp-elf/bin:${env:HOME}/.espressif/tools/openocd-esp32/v0.12.0-esp32-20240318/openocd-esp32/bin:${env:HOME}/.espressif/python_env/idf4.4_py3.11_env/bin:${env:HOME}/esp/esp-idf-v4.4.8/tools:/opt/homebrew/bin"
+    },
+    "idf.enableCCache": true,
     "terraform.languageServer.rootModules": [
         "terraform"
     ],
     "cursor.composer.editorConversationDensity": "detailed",
-    "vim.disableExtension": true
+    "breadcrumbs.enabled": false,
 }
