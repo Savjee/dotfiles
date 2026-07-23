@@ -1,6 +1,3 @@
-# Menu Bar Controller for Sonos
-1357379892
-
 # Pixelmator Pro
 1289583905
 

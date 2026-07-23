@@ -17,17 +17,7 @@ yt-dlp
 gpg
 par2
 
-# Programming languages
-php
-node
-
-# PHP stuff
-imagemagick
-composer
-
 # Development tools
-fzf
-lazydocker
 lazygit
 
 # Fancy terminal tools
