@@ -9,7 +9,6 @@ usage() {
     echo "  --casks              Install Homebrew casks only"
     echo "  --mas                Install Mac App Store apps only"
     echo "  --dotfiles           Install dotfiles only"
-    echo "  --defaults           Install macOS defaults only"
     echo "  --all                Install everything (default if no options provided)"
     exit 1
 }
@@ -66,14 +65,6 @@ install_dotfiles() {
     done
 }
 
-# Install macOS defaults
-install_defaults() {
-    local script_dir
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    echo "Applying macOS defaults..."
-    bash "$script_dir/bin/macos-defaults.sh"
-}
-
 # Install Homebrew if not present
 install_homebrew() {
     if ! command -v brew &> /dev/null; then
@@ -115,16 +106,12 @@ else
             --dotfiles)
                 install_dotfiles
                 ;;
-            --defaults)
-                install_defaults
-                ;;
             --all)
                 install_homebrew
                 install_brew_packages
                 install_brew_casks
                 install_mas_apps
                 install_dotfiles
-                install_defaults
                 ;;
             *)
                 echo "Unknown option: $1"

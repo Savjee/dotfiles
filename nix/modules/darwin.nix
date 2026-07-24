@@ -13,7 +13,7 @@
     "flakes"
   ];
 
-  # Keep existing Stow-managed configs; this flake only owns packages for now.
+  # Stow still manages most dotfiles under config/; packages/defaults are host-owned.
   programs.zsh.enable = true;
 
   system.stateVersion = 5;
