@@ -1,0 +1,27 @@
+[
+  {
+    "bindings": {
+      "cmd-!": "workspace::ToggleBottomDock",
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "alt-cmd-b": "workspace::ToggleLeftDock",
+      "cmd-b": "workspace::ToggleRightDock",
+    },
+  },
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      "cmd-l": "agent::AddSelectionToThread",
+      "cmd-k": "assistant::InlineAssist",
+    },
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "cmd-k": "assistant::InlineAssist",
+    },
+  },
+]
