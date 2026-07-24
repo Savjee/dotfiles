@@ -1,25 +1,7 @@
 # Core utilities
-stow
 rclone
-curl
-wget
 htop
 zsh
 
 # To install apps from Mac App Store
 mas
-
-# Media tools
-ffmpeg
-yt-dlp
-
-# YouTube archiver tools
-gpg
-par2
-
-# Development tools
-lazygit
-
-# Fancy terminal tools
-eza
-bat
