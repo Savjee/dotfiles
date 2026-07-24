@@ -33,6 +33,13 @@
       PMPrintingExpandedStateForPrint2 = true;
       AppleMeasurementUnits = "Centimeters";
       AppleMetricUnits = 1;
+      # en_US locale defaults to 12-hour; force 24-hour system-wide
+      AppleICUForce24HourTime = true;
+    };
+
+    menuExtraClock = {
+      Show24Hour = true;
+      ShowAMPM = false;
     };
 
     trackpad.Clicking = true;
@@ -50,12 +57,14 @@
     };
 
     ActivityMonitor = {
-      ShowCategory = 0;
+      # 100 = All Processes (older defaults scripts used 0)
+      ShowCategory = 100;
       SortColumn = "CPUUsage";
       SortDirection = 0;
     };
 
-    # Keys without first-class nix-darwin options (and Safari; may be ignored by modern Safari).
+    # Keys without first-class nix-darwin options.
+    # Safari omitted: its prefs live in a sandboxed container; writing them aborts activation.
     CustomUserPreferences = {
       NSGlobalDomain = {
         AppleLanguages = [
@@ -78,14 +87,6 @@
         "wvous-tl-modifier" = 0;
         "wvous-tr-modifier" = 0;
         "wvous-br-modifier" = 0;
-      };
-
-      "com.apple.Safari" = {
-        ShowFavoritesBar = false;
-        ShowSidebarInTopSites = false;
-        IncludeDevelopMenu = true;
-        WebKitDeveloperExtrasEnabledPreferenceKey = true;
-        "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
       };
     };
   };
