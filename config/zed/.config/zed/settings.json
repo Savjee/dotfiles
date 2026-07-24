@@ -184,14 +184,10 @@
           "default": "allow",
           "always_allow": [{ "pattern": ".*" }],
         },
-        "web_search": {
+        "web_search_0": {
           "default": "allow",
           "always_allow": [{ "pattern": ".*"}]
         },
-        "web_fetch": {
-          "default": "allow",
-          "always_allow": [{ "pattern": ".*"}]
-        }
       },
     },
     "enable_feedback": false,
@@ -232,6 +228,9 @@
       "preferred_line_length": 90,
       "soft_wrap": "prefer_line",
     },
+    "Nix": {
+      "language_servers": ["nixd", "!nil"]
+    }
   },
   "project_panel": {
     "git_status": true,
