@@ -18,6 +18,6 @@ pkgs: with pkgs; [
   par2cmdline # Creating and using PAR2
 
   # Various
-  ffmpeg-full
+  ffmpeg
   yt-dlp # Audio/video downloader
 ]
