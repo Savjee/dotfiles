@@ -33,7 +33,7 @@
       PMPrintingExpandedStateForPrint2 = true;
       AppleMeasurementUnits = "Centimeters";
       AppleMetricUnits = 1;
-      # en_US locale defaults to 12-hour; force 24-hour system-wide
+      AppleTemperatureUnit = "Celsius";
       AppleICUForce24HourTime = true;
     };
 
@@ -71,7 +71,16 @@
           "en"
           "nl"
         ];
-        AppleLocale = "en_US@currency=EUR";
+        # Region: Belgium (English UI); EUR is the locale default
+        AppleLocale = "en_BE";
+        # Monday = 2 (Sunday = 1)
+        AppleFirstWeekday = {
+          gregorian = 2;
+        };
+        # Short date: DD/MM/YYYY
+        AppleICUDateFormatStrings = {
+          "1" = "dd/MM/yyyy";
+        };
       };
 
       "com.apple.finder" = {
