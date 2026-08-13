@@ -201,3 +201,14 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then . '/
 
 # direnv (loads flake.nix / .envrc on cd)
 eval "$(direnv hook zsh)"
+
+#
+unsetopt nonomatch
+
+# Define function using escaped backslash
+\?() {
+  opencode --model openrouter/~x-ai/grok-latest --agent ask --prompt "$*"
+}
+
+# Define alias with quoted question mark
+alias '?'="noglob \?"
