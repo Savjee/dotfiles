@@ -20,4 +20,6 @@ pkgs: with pkgs; [
   # Various
   ffmpeg
   yt-dlp # Audio/video downloader
+
+  cloudflared # Tunnel to access servers behind Cloudlfare Access
 ]
