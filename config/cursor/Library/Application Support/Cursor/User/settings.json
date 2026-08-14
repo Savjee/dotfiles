@@ -177,5 +177,7 @@
         "terraform"
     ],
     "cursor.composer.editorConversationDensity": "detailed",
-    "breadcrumbs.enabled": false
+    "breadcrumbs.enabled": false,
+    "cursor.composer.conversationDensity": "compact-ungrouped",
+    "cursor.composer.showEmptyStateTips": false
 }
