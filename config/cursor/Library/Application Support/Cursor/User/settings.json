@@ -179,5 +179,6 @@
     "cursor.composer.editorConversationDensity": "detailed",
     "breadcrumbs.enabled": false,
     "cursor.composer.conversationDensity": "compact-ungrouped",
-    "cursor.composer.showEmptyStateTips": false
+    "cursor.composer.showEmptyStateTips": false,
+    "cursor.composer.shouldChimeAfterChatFinishes": false
 }
