@@ -6,6 +6,8 @@
   environment.systemPackages = with pkgs; [
     aerospace # Tiling window manager
     jankyborders # Add colored border to active windows
+    appcleaner # Uninstall leftover app files
+    net-news-wire # RSS reader
   ];
 
   time.timeZone = "Europe/Brussels";
