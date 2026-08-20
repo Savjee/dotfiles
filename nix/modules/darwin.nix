@@ -13,6 +13,9 @@
     "flakes"
   ];
 
+  # AppCleaner, TablePlus, …
+  nixpkgs.config.allowUnfree = true;
+
   # Stow still manages most dotfiles under config/; packages/defaults are host-owned.
   programs.zsh.enable = true;
 
