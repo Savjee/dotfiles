@@ -4,6 +4,11 @@
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
+  # Startup with >3 windows on the focused workspace forces accordion (onboarding).
+  # https://github.com/nikitabobko/AeroSpace/issues/775
+  'layout --root tiles',
+  'flatten-workspace-tree',
+  'balance-sizes',
   'exec-and-forget borders active_color="glow(0xff00FFFF)" width=4.0 style=round hidpi=on'
 ]
 
