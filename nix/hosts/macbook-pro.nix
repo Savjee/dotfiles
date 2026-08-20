@@ -8,6 +8,7 @@
     jankyborders # Add colored border to active windows
     appcleaner # Uninstall leftover app files
     net-news-wire # RSS reader
+    transmission_4-mac # BitTorrent client
   ];
 
   time.timeZone = "Europe/Brussels";
