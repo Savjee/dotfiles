@@ -13,6 +13,10 @@
     "flakes"
   ];
 
+  # Keep build-time closures so nix-direnv's cached shells survive GC.
+  nix.settings.keep-outputs = true;
+  nix.settings.keep-derivations = true;
+
   # AppCleaner, …
   nixpkgs.config.allowUnfree = true;
 

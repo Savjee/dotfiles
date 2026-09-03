@@ -8,13 +8,13 @@ My personal configuration for macOS.
 nix/
   modules/          # shared across machines
     packages.nix    # global CLI packages
-    home.nix        # Home Manager (packages only for now)
+    home.nix        # Home Manager (packages + direnv / nix-direnv)
     darwin.nix      # shared macOS / nix-darwin settings
   hosts/
     macbook-pro.nix # this Mac (packages + system defaults)
 ```
 
-Shared tools live in `nix/modules/packages.nix`. This Mac’s packages and Dock / Finder / trackpad / locale defaults live in `nix/hosts/macbook-pro.nix`.
+Shared tools live in `nix/modules/packages.nix`. Direnv + nix-direnv are enabled in `home.nix` so every flake project caches its shell on `cd`. This Mac’s packages and Dock / Finder / trackpad / locale defaults live in `nix/hosts/macbook-pro.nix`.
 
 nix-darwin runs system activation as root, so rebuilds need `sudo`.
 

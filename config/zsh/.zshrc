@@ -199,7 +199,7 @@ compdef _artisan artisan
 # Nix
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'; fi
 
-# direnv (loads flake.nix / .envrc on cd)
+# direnv hook (Stow). nix-direnv cache comes from Home Manager.
 eval "$(direnv hook zsh)"
 
 #

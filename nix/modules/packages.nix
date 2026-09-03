@@ -5,7 +5,6 @@ pkgs: with pkgs; [
   git # Version control
   lazygit # Git TUI
   curl # HTTP client
-  direnv # Per-directory env from flake.nix / .envrc
 
   # Fancy terminal
   eza # Modern replacement for ls
