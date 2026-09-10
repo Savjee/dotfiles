@@ -1,4 +1,4 @@
-{
+{ "workbench.colorTheme": "Omarchy",
     "telemetry.telemetryLevel": "off",
 
 
@@ -87,6 +87,7 @@
     "scm.diffDecorations": "gutter",
     "diffEditor.codeLens": true,
 
+    "editor.fontSize": 12.5,
     "editor.fontFamily": "JetBrainsMono Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace",
     "editor.peekWidgetDefaultFocus": "editor",
     "editor.guides.highlightActiveIndentation": "always",
@@ -180,5 +181,6 @@
     "breadcrumbs.enabled": false,
     "cursor.composer.conversationDensity": "compact-ungrouped",
     "cursor.composer.showEmptyStateTips": false,
-    "cursor.composer.shouldChimeAfterChatFinishes": false
+    "cursor.composer.shouldChimeAfterChatFinishes": false,
+    "workbench.agentsWindowButton.enabled": false
 }

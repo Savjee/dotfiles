@@ -1,5 +1,18 @@
 gui:
   showCommandLog: false
+  # Ristretto Light: default terminal green is too close to the cream
+  # background / body text. Use the theme's olive focus ring instead.
+  theme:
+    activeBorderColor:
+      - "#496c1e"
+      - bold
+    searchingActiveBorderColor:
+      - "#8a6c3e"
+      - bold
+    optionsTextColor:
+      - "#496c1e"
+    selectedLineBgColor:
+      - "#e8dcc8"
 
 # Let Homebrew handle updates
 update:

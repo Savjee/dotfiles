@@ -118,21 +118,10 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 
-# Artisan helper + command completion (alias breaks zsh completion → filenames)
-unalias artisan 2>/dev/null
-artisan() {
-  local dir=$PWD
-  while [[ $dir != / ]]; do
-    if [[ -x $dir/artisan || -f $dir/artisan ]]; then
-      php "$dir/artisan" "$@"
-      return $?
-    fi
-    dir=${dir:h}
-  done
-  print -u2 "No artisan found above $PWD"
-  return 1
-}
-alias lg="lazygit"
+# Shared aliases (lg, artisan, …) — also sourced from Linux ~/.bashrc
+if [ -r "$HOME/.config/shell/aliases.sh" ]; then
+  source "$HOME/.config/shell/aliases.sh"
+fi
 
 # Modern CLI tool aliases (conditional on installation)
 if command -v eza &> /dev/null; then

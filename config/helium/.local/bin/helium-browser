@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Launch Helium in the host user namespace so 1Password's setgid
+# BrowserSupport helper works, while hiding Omarchy's Chromium machine
+# theme policy (/etc/chromium/policies/managed/color.json).
+#
+# Unprivileged bubblewrap cannot mount over that path without a user
+# namespace, and setgid is ignored inside a user namespace. LD_PRELOAD
+# makes the policy directory look missing to Helium; 1Password-BrowserSupport
+# is setgid, so glibc ignores the preload for that helper.
+set -euo pipefail
+
+REAL=/opt/helium-browser-beta-bin/helium-wrapper
+HIDE="$HOME/.local/lib/libhide-chromium-policies.so"
+
+if [[ ! -x $REAL ]]; then
+  echo "helium-browser: missing $REAL" >&2
+  exit 127
+fi
+
+if [[ -f $HIDE ]]; then
+  export LD_PRELOAD="$HIDE${LD_PRELOAD:+:$LD_PRELOAD}"
+fi
+
+# Omarchy sets GDK_SCALE=2 for GTK. Helium is already a Wayland Ozone
+# client and follows the compositor scale (2× on the UltraFine). Inheriting
+# GDK_SCALE stacks a second factor and makes chrome enormous.
+export GDK_SCALE=1
+unset GDK_DPI_SCALE
+
+exec "$REAL" "$@"
