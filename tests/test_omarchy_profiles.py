@@ -53,7 +53,6 @@ class ProfilesTest(unittest.TestCase):
             self.assertTrue((hypr / "input.lua").is_symlink())
             self.assertFalse((home / ".config/omarchy/machine").exists())
             self.assertFalse((home / ".local/bin/kuycon-dp-audio").exists())
-            self.assertFalse((home / ".config/voxtype/config.toml").exists())
             self.assertFalse((home / ".config/rclone/rclone.conf").exists())
             self.assertFalse((home / ".config/omarchy/extensions/omarchy-menu.jsonc").exists())
 

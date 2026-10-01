@@ -5,7 +5,6 @@ cursor-agent = { version = "latest", bin_path = "bin", strip_components = 0, url
 gh = "latest"
 node = "26.8.1"
 "npm:playwright" = "latest"
-opencode = "latest"
 
 [settings.upgrade]
 auto_prune = false

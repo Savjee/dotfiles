@@ -22,7 +22,7 @@ if [[ -f $HIDE ]]; then
 fi
 
 # Display workarounds and page zoom are opt-in, owned by the machine profile.
-settings=$HOME/.config/omarchy/machine/electron.env
+settings=$HOME/.config/omarchy/machine/helium.env
 if [[ -r $settings ]]; then
   # shellcheck source=/dev/null
   source "$settings"

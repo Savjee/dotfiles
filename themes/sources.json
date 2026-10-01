@@ -6,11 +6,6 @@
       "slug": "ristretto-light",
       "url": "https://github.com/brokkoli71/omarchy-ristretto-light-theme",
       "revision": "e9abefc5088485c994fc708a11f73f48c46457c9"
-    },
-    {
-      "slug": "white-air",
-      "url": "https://github.com/o-200/omarchy-white-air-theme",
-      "revision": "38d41b82f7a330a861e1e933f30050cf45ba4db2"
     }
   ],
   "notes": "Palette, light-mode/icon inputs, CSS overrides and selected wallpaper assets are in the shared omarchy Stow package. Additional local wallpapers and generated theme outputs are not source configuration."

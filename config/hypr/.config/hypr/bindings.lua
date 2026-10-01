@@ -1,11 +1,6 @@
 -- Keep only your personal keybinding overrides here. Add new bindings or
 -- unbind defaults before replacing them.
 
--- The launcher reads optional scaling workarounds from the machine package.
--- Unbind existing SUPER+SHIFT+SLASH (was: Passwords via omarchy 1password).
-hl.unbind("SUPER + SHIFT + SLASH")
-o.bind("SUPER + SHIFT + SLASH", "Passwords", { launch = os.getenv("HOME") .. "/.local/bin/1password-launch" })
-
 -- See current bindings and descriptions:
 --   omarchy menu keybindings --print
 
@@ -18,7 +13,7 @@ o.bind("SUPER + SHIFT + SLASH", "Passwords", { launch = os.getenv("HOME") .. "/.
 --   omarchy_preinstalled_bindings = false
 
 -- Add a new binding.
--- o.bind("SUPER + SHIFT + R", "SSH", "alacritty -e ssh your-server")
+-- o.bind("SUPER + SHIFT + R", "SSH", "ghostty -e ssh your-server")
 
 -- Change an existing binding by unbinding it first, then binding the key again.
 -- This example changes SUPER+SPACE from the launcher to the Omarchy root menu.
@@ -155,7 +150,7 @@ o.bind("SUPER + CTRL + RIGHT", "Join right or pull out of stack", function()
 end)
 
 -- Magic Keyboard top row (fnmode=2 sends F-keys, not XF86*). Same actions as
--- the stock media binds. F9 was voxtype push-to-talk; use Option+Cmd+X instead.
+-- the stock media binds. Override the stock F9 dictation binding for media.
 hl.unbind("F9")
 o.bind("F1", "Brightness down", "omarchy-brightness-display 5%-", { locked = true, repeating = true })
 o.bind("F2", "Brightness up", "omarchy-brightness-display +5%", { locked = true, repeating = true })
@@ -170,7 +165,7 @@ o.bind("F12", "Volume up", "omarchy-audio-output-volume raise", { locked = true,
 
 -- Universal copy: Omarchy sends Ctrl+Insert to terminals. On this keyboard that
 -- chord can land as Ctrl+C while Super+C is still held, so Ghostty gets SIGINT.
--- Use Ctrl+Shift+C instead (Ghostty/Kitty/Alacritty/Foot all bind that to copy).
+-- Use Ghostty's Ctrl+Shift+C binding instead.
 local function send_shortcut_once(mods, key)
   return function()
     hl.dispatch(hl.dsp.send_key_state({ mods = mods, key = key, state = "down" }))
@@ -187,10 +182,6 @@ local function window_is_terminal(window)
 
   local class = window.class or window.initial_class or ""
   if class:find("ghostty", 1, true)
-      or class:find("Alacritty", 1, true)
-      or class:find("kitty", 1, true)
-      or class:find("foot", 1, true)
-      or class:find("wezterm", 1, true)
       or class:find("org.omarchy.", 1, true)
       or class:find("TUI.", 1, true) then
     return true
