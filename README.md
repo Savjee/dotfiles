@@ -1,6 +1,32 @@
 # dotfiles
 
-My personal configuration for macOS.
+My personal configuration for Omarchy Linux and macOS.
+
+## Omarchy with Stow
+
+Shared settings are selected in `profiles/omarchy-common.stow`. Each machine adds its own profile:
+
+* `omachine`: this PC's displays, scaling and audio routing.
+* `macbook-m2`: the common layer; preserves the laptop's existing display/audio setup.
+
+Apple AZERTY, keyboard shortcuts, workspace rules, themes and service plumbing are shared. Monitor settings and audio routing are never in the common layer. Credentials and generated account/cache data remain local.
+
+This is the capture/review stage. Preview without changing any files:
+
+```bash
+scripts/preview-omarchy-stow.sh omachine
+scripts/preview-omarchy-stow.sh macbook-m2
+```
+
+The preview command has no apply mode. See [configuration ownership and deployment notes](docs/omarchy-stow.md) before linking anything.
+
+* [Original Omarchy audit](docs/omarchy-audit.md)
+* [Sync options and tradeoffs](docs/omarchy-sync-options.md)
+* [Historical audit snapshot](docs/omarchy-inventory.json)
+
+## Legacy macOS setup
+
+The Nix and Homebrew workflow below is for macOS, not the M2's Asahi Linux installation. The legacy installer uses the explicit macOS Stow profile and refuses to run on Linux.
 
 ## Nix (nix-darwin + Home Manager)
 

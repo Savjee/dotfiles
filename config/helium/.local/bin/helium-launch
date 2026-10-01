@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# Launch Helium in the host user namespace so 1Password's setgid
+# BrowserSupport helper works, while hiding Omarchy's Chromium machine
+# theme policy (/etc/chromium/policies/managed/color.json).
+#
+# Unprivileged bubblewrap cannot mount over that path without a user
+# namespace, and setgid is ignored inside a user namespace. LD_PRELOAD
+# makes the policy directory look missing to Helium; 1Password-BrowserSupport
+# is setgid, so glibc ignores the preload for that helper.
+set -euo pipefail
+
+REAL=/usr/bin/helium-browser
+HIDE="$HOME/.local/lib/libhide-chromium-policies.so"
+
+if [[ ! -x $REAL ]]; then
+  echo "helium-browser: missing $REAL" >&2
+  exit 127
+fi
+
+if [[ -f $HIDE ]]; then
+  export LD_PRELOAD="$HIDE${LD_PRELOAD:+:$LD_PRELOAD}"
+fi
+
+# Display workarounds and page zoom are opt-in, owned by the machine profile.
+settings=$HOME/.config/omarchy/machine/electron.env
+if [[ -r $settings ]]; then
+  # shellcheck source=/dev/null
+  source "$settings"
+fi
+has_scale=0
+for arg in "$@"; do
+  case "$arg" in --force-device-scale-factor|--force-device-scale-factor=*) has_scale=1 ;; esac
+done
+if [[ -n ${OMARCHY_ELECTRON_SCALE_FACTOR:-} && $has_scale == 0 ]]; then
+  set -- "--force-device-scale-factor=$OMARCHY_ELECTRON_SCALE_FACTOR" "$@"
+fi
+
+prefs="$HOME/.config/net.imput.helium/Default/Preferences"
+if [[ -n ${OMARCHY_HELIUM_PAGE_ZOOM:-} && -f $prefs ]] && ! pgrep -x helium >/dev/null 2>&1; then
+  python3 - "$prefs" "$OMARCHY_HELIUM_PAGE_ZOOM" <<'PY'
+import json, math, sys
+path = sys.argv[1]
+zoom = math.log(float(sys.argv[2])) / math.log(1.2)
+try:
+    data = json.loads(open(path, encoding="utf-8").read())
+except (OSError, json.JSONDecodeError):
+    raise SystemExit(0)
+part = data.setdefault("partition", {})
+current = part.get("default_zoom_level")
+if isinstance(current, dict):
+    if current.get("x") == zoom:
+        raise SystemExit(0)
+    current["x"] = zoom
+else:
+    part["default_zoom_level"] = {"x": zoom}
+open(path, "w", encoding="utf-8").write(json.dumps(data, separators=(",", ":")))
+PY
+fi
+
+exec "$REAL" "$@"

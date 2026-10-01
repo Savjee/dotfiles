@@ -509,6 +509,7 @@ Panel {
     property int rowIndex: 0
     readonly property string fileName: file ? String(file.name || "Untitled") : "Untitled"
     readonly property bool queued: file ? file.queued === true : false
+    readonly property bool failing: Model.isFailing(file)
     readonly property real fraction: {
       if (!file || queued) return 0
       var pct = Number(file.percentage || 0)
@@ -546,7 +547,7 @@ Panel {
       Text {
         textFormat: Text.PlainText
         text: Model.fileGlyph(fileRow.fileName)
-        color: root.dim
+        color: fileRow.failing ? root.urgent : root.dim
         font.family: root.fontFamily
         font.pixelSize: Style.font.body
         Layout.alignment: Qt.AlignVCenter
@@ -567,7 +568,7 @@ Panel {
         textFormat: Text.PlainText
         visible: text !== ""
         text: Model.fileProgressText(fileRow.file)
-        color: root.dim
+        color: fileRow.failing ? root.urgent : root.dim
         font.family: root.fontFamily
         font.pixelSize: Style.font.caption
         Layout.alignment: Qt.AlignVCenter

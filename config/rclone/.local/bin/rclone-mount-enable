@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Run explicitly after Stow and rclone authentication; no credentials in Git.
+set -euo pipefail
+usage() { printf 'Usage: %s REMOTE [--sharepoint]\n' "${0##*/}" >&2; }
+[[ $# -ge 1 && $# -le 2 && -n $1 && $1 != */* && $1 != *$'\n'* && $1 != *$'\r'* ]] || {
+  usage; exit 2;
+}
+remote=$1
+if [[ $# == 2 && $2 != --sharepoint ]]; then usage; exit 2; fi
+if ! rclone listremotes | rg -F -x -- "$remote:" >/dev/null; then
+  printf 'Authenticate this remote first with rclone config: %s\n' "$remote" >&2
+  exit 1
+fi
+unit=$(systemd-escape --template=rclone-mount@.service -- "$remote")
+if [[ ${2:-} == --sharepoint ]]; then
+  dropin=$HOME/.config/systemd/user/$unit.d
+  mkdir -p -- "$dropin"
+  cat >"$dropin/sharepoint.conf" <<'CONF'
+[Service]
+Environment=RCLONE_IGNORE_CHECKSUM=true RCLONE_IGNORE_SIZE=true
+CONF
+fi
+systemctl --user daemon-reload
+systemctl --user enable --now "$unit"

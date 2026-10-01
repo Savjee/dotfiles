@@ -139,7 +139,7 @@ Item {
     _controlOutput = ""
     _controlError = ""
     _controlAction = want ? "start" : "stop"
-    controlProcess.command = ["systemctl", "--user", want ? "start" : "stop", "rclone-mount@" + remote + ".service"]
+    controlProcess.command = [Quickshell.env("HOME") + "/.local/bin/rclone-mount-control", want ? "start" : "stop", remote]
     controlProcess.running = true
   }
 
@@ -152,7 +152,7 @@ Item {
     _controlError = ""
     _controlAction = "restart"
     actionStatus = "Restarting " + remote + "…"
-    controlProcess.command = ["systemctl", "--user", "restart", "rclone-mount@" + remote + ".service"]
+    controlProcess.command = [Quickshell.env("HOME") + "/.local/bin/rclone-mount-control", "restart", remote]
     controlProcess.running = true
   }
 

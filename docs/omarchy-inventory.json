@@ -1,0 +1,351 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-10-01",
+  "platform": "x86_64-linux",
+  "omarchy_package_version": "4.0.4-1",
+  "other_target": {
+    "hardware": "M2 MacBook",
+    "platform": "aarch64-linux",
+    "installation": "bare metal / Asahi Linux",
+    "inspected": false
+  },
+  "purpose": "Read-only observations, not a desired-state install manifest. Extra packages can be optional/provisioned rather than personal additions.",
+  "baseline": {
+    "path": "/usr/share/omarchy",
+    "package_integrity": "pacman -Qkk omarchy: 1730 total files, 0 altered files",
+    "package_lists": [
+      "install/omarchy-base.packages",
+      "install/omarchy-other.packages"
+    ],
+    "config_template_comparison": "Byte comparison; includes generated state and application-version differences."
+  },
+  "candidate_explicit_additions": [
+    {
+      "name": "1password",
+      "version": "8.12.36-2",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "1password-cli",
+      "version": "2.39.0-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "cloudflared",
+      "version": "2026.8.3-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "cursor-bin",
+      "version": "3.22.7-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "direnv",
+      "version": "2.37.1-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "evolution-ews",
+      "version": "3.60.2-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "flatpak",
+      "version": "1:1.18.2-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "freecad",
+      "version": "1.1.3-2",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "fwupd",
+      "version": "2.1.7-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "ghostty",
+      "version": "1.3.1-2",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "gnome-calendar",
+      "version": "50.0-2",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "gnome-online-accounts-gtk",
+      "version": "3.50.10-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "grok-bot",
+      "version": "0.29.0-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "helium-browser-bin",
+      "version": "0.18.1.1-1",
+      "foreign_on_this_host": true
+    },
+    {
+      "name": "mailspring-bin",
+      "version": "1.25.0-1",
+      "foreign_on_this_host": true
+    },
+    {
+      "name": "nix",
+      "version": "2.35.2-2",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "nvtop",
+      "version": "3.3.2-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "omazed",
+      "version": "2.1.2-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "openai-codex-desktop",
+      "version": "26.924.22138-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "rclone",
+      "version": "1.75.1-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "spotify",
+      "version": "1:1.2.96.518-3",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "t3code-bin",
+      "version": "0.0.44-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "teams-for-linux-bin",
+      "version": "2.22.0-1",
+      "foreign_on_this_host": true
+    },
+    {
+      "name": "thunar",
+      "version": "4.20.9-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "usbutils",
+      "version": "019-1",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "voxtype-bin",
+      "version": "1.1.0-2",
+      "foreign_on_this_host": false
+    },
+    {
+      "name": "zed",
+      "version": "1.18.1-1",
+      "foreign_on_this_host": false
+    }
+  ],
+  "infrastructure_outside_stock_lists": [
+    {
+      "name": "amd-ucode",
+      "version": "20260810-2"
+    },
+    {
+      "name": "efibootmgr",
+      "version": "18-4"
+    },
+    {
+      "name": "linux",
+      "version": "7.2.3.arch1-3"
+    },
+    {
+      "name": "mkinitcpio",
+      "version": "41.1-1"
+    },
+    {
+      "name": "omarchy",
+      "version": "4.0.4-1"
+    },
+    {
+      "name": "omarchy-keyring",
+      "version": "20251027-1"
+    },
+    {
+      "name": "omarchy-settings",
+      "version": "4.0.4-1"
+    },
+    {
+      "name": "sudo",
+      "version": "1.9.17.p2-6"
+    }
+  ],
+  "foreign_packages": [
+    {
+      "name": "electron44-bin",
+      "version": "44.5.1-1",
+      "explicit": false
+    },
+    {
+      "name": "helium-browser-bin",
+      "version": "0.18.1.1-1",
+      "explicit": true
+    },
+    {
+      "name": "mailspring-bin",
+      "version": "1.25.0-1",
+      "explicit": true
+    },
+    {
+      "name": "teams-for-linux-bin",
+      "version": "2.22.0-1",
+      "explicit": true
+    }
+  ],
+  "stock_core_names_not_installed": [
+    {
+      "name": "nvim",
+      "interpretation": "Installed as neovim; /usr/bin/nvim is owned by neovim. Not a missing editor."
+    }
+  ],
+  "flatpak_apps": [
+    {
+      "id": "net.donnybeelo.Convey",
+      "name": "Convey",
+      "architecture": "x86_64"
+    }
+  ],
+  "nix_user_profile_packages": [
+    "stow"
+  ],
+  "mise_global_tool_selectors": {
+    "claude": "latest",
+    "codex": "latest",
+    "cursor-agent": {
+      "version": "latest",
+      "custom_download_recipe": true
+    },
+    "gh": "latest",
+    "node": "26.8.1",
+    "npm:playwright": "latest",
+    "opencode": "latest"
+  },
+  "differing_stock_template_files": [
+    {
+      "path": "~/.config/alacritty/alacritty.toml",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    },
+    {
+      "path": "~/.config/btop/btop.conf",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    },
+    {
+      "path": "~/.config/chromium/Default/Preferences",
+      "status": "differs",
+      "interpretation": "application_state"
+    },
+    {
+      "path": "~/.config/foot/foot.ini",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    },
+    {
+      "path": "~/.config/ghostty/config",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    },
+    {
+      "path": "~/.config/git/config",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    },
+    {
+      "path": "~/.config/hypr/autostart.lua",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    },
+    {
+      "path": "~/.config/hypr/bindings.lua",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    },
+    {
+      "path": "~/.config/hypr/hyprland.lua",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    },
+    {
+      "path": "~/.config/hypr/input.lua",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    },
+    {
+      "path": "~/.config/hypr/looknfeel.lua",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    },
+    {
+      "path": "~/.config/hypr/monitors.lua",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    },
+    {
+      "path": "~/.config/kitty/kitty.conf",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    },
+    {
+      "path": "~/.config/lazygit/config.yml",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    },
+    {
+      "path": "~/.config/omarchy/extensions/omarchy-menu.jsonc",
+      "status": "differs",
+      "interpretation": "includes_generated_plugin_rows"
+    },
+    {
+      "path": "~/.config/omarchy/shell.json",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    },
+    {
+      "path": "~/.config/opencode/opencode.json",
+      "status": "differs",
+      "interpretation": "preference_or_override"
+    }
+  ],
+  "selected_preferences": {
+    "theme": "ristretto-light",
+    "browser": "helium.desktop",
+    "terminal": "com.mitchellh.ghostty.desktop",
+    "mail_handler": "Mailspring.desktop",
+    "default_agent": "codex",
+    "gtk_text_scaling_factor": 1.1818,
+    "idle_screensaver_seconds": 150,
+    "idle_lock_seconds": 300
+  },
+  "excluded_data": [
+    "Credentials and account databases",
+    "Browser-profile contents",
+    "Private repository menu cache rows",
+    "Root-only settings",
+    "MacBook live state"
+  ],
+  "reports": [
+    "omarchy-audit.md",
+    "omarchy-sync-options.md"
+  ]
+}

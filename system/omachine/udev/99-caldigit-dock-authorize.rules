@@ -1,0 +1,2 @@
+# Authorize the CalDigit USB-C Pro Dock early so its USB keyboard works at the LUKS prompt
+ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{unique_id}=="cc030000-0050-541e-03b4-a30a84917a20", ATTR{authorized}=="0", ATTR{authorized}="1"

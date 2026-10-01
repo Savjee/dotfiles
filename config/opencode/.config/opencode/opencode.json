@@ -1,0 +1,24 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "autoupdate": false,
+  "provider": {
+    "openrouter": {
+      "options": {
+        "serviceTier": "flex",
+        "timeout": 900000
+      },
+      "models": {
+        "openai/gpt-6-astra": {
+          "options": {
+            "serviceTier": "flex"
+          }
+        },
+        "openai/gpt-6-astra-pro": {
+          "options": {
+            "serviceTier": "flex"
+          }
+        }
+      }
+    }
+  }
+}

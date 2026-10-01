@@ -68,10 +68,39 @@ function formatEta(seconds) {
   return hours + "h " + rem + "m left"
 }
 
+function failedTries(file) {
+  var tries = Number(file && file.tries || 0)
+  return isFinite(tries) && tries > 0 ? Math.floor(tries) : 0
+}
+
+function isFailing(file) {
+  return failedTries(file) > 0
+}
+
+function failingCount(files) {
+  var n = 0
+  for (var i = 0; i < (files || []).length; i++) if (isFailing(files[i])) n++
+  return n
+}
+
+function formatRetryIn(seconds) {
+  var value = Number(seconds)
+  if (!isFinite(value) || value < 0) return ""
+  if (value < 1) return "retrying now"
+  if (value < 60) return "retry in " + Math.round(value) + "s"
+  return "retry in " + Math.round(value / 60) + "m"
+}
+
 function fileProgressText(file) {
   if (!file) return ""
+  var tries = failedTries(file)
+  if (tries > 0 && file.queued) {
+    var retry = formatRetryIn(file.retryIn)
+    return "Failed " + fileCountWord(tries, "time") + (retry ? " · " + retry : "")
+  }
   if (file.queued) return "Queued"
   var bits = []
+  if (tries > 0) bits.push("Retry #" + (tries + 1))
   if (Number(file.size || 0) > 0) bits.push(formatBytes(file.bytes) + " / " + formatBytes(file.size))
   else if (Number(file.bytes || 0) > 0) bits.push(formatBytes(file.bytes))
   return bits.join(" · ")
@@ -108,8 +137,10 @@ function activityGroups(remotes) {
         queued: true
       }]
     }
+    var failing = failingCount(files)
     var verb = "transferring"
-    if (downloadFiles > 0 && uploadFiles === 0) verb = "downloading"
+    if (failing > 0 && failing === files.length) verb = "failing to upload"
+    else if (downloadFiles > 0 && uploadFiles === 0) verb = "downloading"
     else if (uploadFiles > 0 && downloadFiles === 0) verb = "uploading"
     var count = namedCount > 0 ? namedCount : uploads
     var headline = providerLabel(remote.type) + " is " + verb
@@ -121,6 +152,7 @@ function activityGroups(remotes) {
       speed: speed,
       files: files,
       count: count,
+      failing: failing,
       verb: verb,
       headline: headline,
       caption: count > 0 ? capitalize(verb) + " " + fileCountWord(count, "file") : "Transferring",
@@ -133,12 +165,16 @@ function activityGroups(remotes) {
 function activityHeadline(groups, fallback) {
   if (!groups || groups.length === 0) return fallback || ""
   var count = 0
+  var failing = 0
   var verb = groups[0].verb
   for (var i = 0; i < groups.length; i++) {
     count += Number(groups[i].count || 0)
+    failing += Number(groups[i].failing || 0)
     if (groups[i].verb !== verb) verb = "transferring"
   }
-  return capitalize(verb) + " " + fileCountWord(count, "file")
+  var headline = capitalize(verb) + " " + fileCountWord(count, "file")
+  if (failing > 0 && verb !== "failing to upload") headline += " · " + failing + " failing"
+  return headline
 }
 
 function directionalSpeedText(transfers) {
@@ -244,6 +280,8 @@ function remoteMeta(remote) {
   var speed = formatSpeed(remote.speed)
   var uploads = uploadCount(remote)
   var transfers = remote.transferring && remote.transferring.length ? remote.transferring.length : 0
+  var failing = failingCount(remote.transferring)
+  if (failing > 0) return failing === 1 ? "1 upload failing" : failing + " uploads failing"
   if (speed && (uploads > 0 || transfers > 0)) return speed
   if (uploads > 0) return uploads === 1 ? "Uploading 1 file" : "Uploading " + uploads + " files"
   if (transfers > 0) return transfers === 1 ? "Transferring 1 file" : "Transferring " + transfers + " files"
@@ -307,6 +345,10 @@ if (typeof module !== "undefined") {
     relativeTime: relativeTime,
     recentMeta: recentMeta,
     fileProgressText: fileProgressText,
+    failedTries: failedTries,
+    isFailing: isFailing,
+    failingCount: failingCount,
+    formatRetryIn: formatRetryIn,
     formatEta: formatEta,
     uploadCount: uploadCount,
     providerLabel: providerLabel,

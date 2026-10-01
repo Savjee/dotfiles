@@ -1,0 +1,3 @@
+# aarch64 Linux through Asahi. Adds only the common Omarchy layer for now.
+# Keep the laptop's existing monitors.lua and autostart.lua untouched.
+# Add a dedicated package here after inspecting its display/audio settings.

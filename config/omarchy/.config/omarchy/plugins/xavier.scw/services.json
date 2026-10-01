@@ -1,0 +1,404 @@
+{
+  "services": [
+    {
+      "id": "console",
+      "name": "Console",
+      "category": "Account",
+      "url": "https://console.scaleway.com/",
+      "description": "Scaleway console home",
+      "aliases": ["dashboard", "home"]
+    },
+    {
+      "id": "organization",
+      "name": "Organization",
+      "category": "Account",
+      "url": "https://console.scaleway.com/organization",
+      "description": "Organization settings and members",
+      "aliases": ["org"]
+    },
+    {
+      "id": "projects",
+      "name": "Projects",
+      "category": "Account",
+      "url": "https://console.scaleway.com/project",
+      "description": "Project list and switcher",
+      "aliases": ["project"]
+    },
+    {
+      "id": "billing",
+      "name": "Billing",
+      "category": "Account",
+      "url": "https://console.scaleway.com/billing",
+      "description": "Invoices, consumption, and payment",
+      "aliases": ["invoice", "cost", "payment"]
+    },
+    {
+      "id": "support",
+      "name": "Support",
+      "category": "Account",
+      "url": "https://console.scaleway.com/support",
+      "description": "Support tickets",
+      "aliases": ["ticket", "help"]
+    },
+    {
+      "id": "footprint",
+      "name": "Environmental Footprint",
+      "category": "Account",
+      "url": "https://console.scaleway.com/environmental-footprint",
+      "description": "Carbon and environmental reporting",
+      "aliases": ["carbon", "environment"]
+    },
+    {
+      "id": "instances",
+      "name": "Instances",
+      "category": "Compute",
+      "url": "https://console.scaleway.com/instance/servers",
+      "description": "CPU and GPU virtual machines",
+      "aliases": ["vm", "server", "cpu", "gpu"]
+    },
+    {
+      "id": "elastic-metal",
+      "name": "Elastic Metal",
+      "category": "Compute",
+      "url": "https://console.scaleway.com/elastic-metal/servers",
+      "description": "Dedicated bare metal servers",
+      "aliases": ["baremetal", "dedibox", "metal"]
+    },
+    {
+      "id": "apple-silicon",
+      "name": "Apple silicon",
+      "category": "Compute",
+      "url": "https://console.scaleway.com/apple-silicon/servers",
+      "description": "Mac mini M-series servers",
+      "aliases": ["mac", "macos", "m1", "m2"]
+    },
+    {
+      "id": "kubernetes",
+      "name": "Kubernetes",
+      "category": "Containers",
+      "url": "https://console.scaleway.com/kubernetes/clusters",
+      "description": "Managed Kubernetes Kapsule clusters",
+      "aliases": ["k8s", "kapsule", "cluster"]
+    },
+    {
+      "id": "registry",
+      "name": "Container Registry",
+      "category": "Containers",
+      "url": "https://console.scaleway.com/registry/namespaces",
+      "description": "Private container image registry",
+      "aliases": ["docker", "images"]
+    },
+    {
+      "id": "object-storage",
+      "name": "Object Storage",
+      "category": "Storage",
+      "url": "https://console.scaleway.com/object-storage/buckets",
+      "description": "S3-compatible buckets",
+      "aliases": ["s3", "bucket", "object"]
+    },
+    {
+      "id": "block-storage",
+      "name": "Block Storage",
+      "category": "Storage",
+      "url": "https://console.scaleway.com/block-storage/volumes",
+      "description": "Network block volumes",
+      "aliases": ["volume", "block", "disk"]
+    },
+    {
+      "id": "file-storage",
+      "name": "File Storage",
+      "category": "Storage",
+      "url": "https://console.scaleway.com/file-storage",
+      "description": "Managed NFS file systems",
+      "aliases": ["nfs", "filesystem"]
+    },
+    {
+      "id": "rdb",
+      "name": "Managed PostgreSQL and MySQL",
+      "category": "Databases",
+      "url": "https://console.scaleway.com/rdb/instances",
+      "description": "Managed relational databases",
+      "aliases": ["postgres", "postgresql", "mysql", "database", "sql"]
+    },
+    {
+      "id": "redis",
+      "name": "Managed Redis",
+      "category": "Databases",
+      "url": "https://console.scaleway.com/redis/clusters",
+      "description": "Managed Redis clusters",
+      "aliases": ["cache"]
+    },
+    {
+      "id": "mongodb",
+      "name": "Managed MongoDB",
+      "category": "Databases",
+      "url": "https://console.scaleway.com/mongodb/instances",
+      "description": "Managed MongoDB databases",
+      "aliases": ["mongo"]
+    },
+    {
+      "id": "serverless-sql",
+      "name": "Serverless SQL Databases",
+      "category": "Databases",
+      "url": "https://console.scaleway.com/serverless-sql",
+      "description": "Serverless PostgreSQL",
+      "aliases": ["serverless-db"]
+    },
+    {
+      "id": "clickhouse",
+      "name": "Data Warehouse for ClickHouse",
+      "category": "Databases",
+      "url": "https://console.scaleway.com/datawarehouse",
+      "description": "Managed ClickHouse analytics",
+      "aliases": ["datawarehouse", "analytics"]
+    },
+    {
+      "id": "opensearch",
+      "name": "OpenSearch",
+      "category": "Databases",
+      "url": "https://console.scaleway.com/searchdb",
+      "description": "Cloud Essentials for OpenSearch",
+      "aliases": ["searchdb", "elasticsearch", "search"]
+    },
+    {
+      "id": "kafka",
+      "name": "Apache Kafka",
+      "category": "Data",
+      "url": "https://console.scaleway.com/kafka",
+      "description": "Managed Kafka clusters",
+      "aliases": []
+    },
+    {
+      "id": "spark",
+      "name": "Apache Spark",
+      "category": "Data",
+      "url": "https://console.scaleway.com/datalab",
+      "description": "Managed Spark clusters",
+      "aliases": ["datalab"]
+    },
+    {
+      "id": "data-orchestrator",
+      "name": "Data Orchestrator",
+      "category": "Data",
+      "url": "https://console.scaleway.com/data-orchestrator",
+      "description": "Pipelines and orchestration",
+      "aliases": ["airflow", "etl"]
+    },
+    {
+      "id": "functions",
+      "name": "Serverless Functions",
+      "category": "Serverless",
+      "url": "https://console.scaleway.com/functions/namespaces",
+      "description": "FaaS functions",
+      "aliases": ["lambda", "faas"]
+    },
+    {
+      "id": "containers",
+      "name": "Serverless Containers",
+      "category": "Serverless",
+      "url": "https://console.scaleway.com/containers/namespaces",
+      "description": "Serverless container apps",
+      "aliases": ["cnb"]
+    },
+    {
+      "id": "jobs",
+      "name": "Serverless Jobs",
+      "category": "Serverless",
+      "url": "https://console.scaleway.com/serverless-jobs",
+      "description": "Scheduled and on-demand jobs",
+      "aliases": ["cron"]
+    },
+    {
+      "id": "vpc",
+      "name": "VPC",
+      "category": "Network",
+      "url": "https://console.scaleway.com/vpc",
+      "description": "Private networks and routing",
+      "aliases": ["network", "private-network"]
+    },
+    {
+      "id": "public-gateway",
+      "name": "Public Gateways",
+      "category": "Network",
+      "url": "https://console.scaleway.com/public-gateway",
+      "description": "NAT and DHCP gateways",
+      "aliases": ["nat", "gateway"]
+    },
+    {
+      "id": "load-balancer",
+      "name": "Load Balancer",
+      "category": "Network",
+      "url": "https://console.scaleway.com/load-balancer",
+      "description": "Managed load balancers",
+      "aliases": ["lb"]
+    },
+    {
+      "id": "ipam",
+      "name": "IPAM",
+      "category": "Network",
+      "url": "https://console.scaleway.com/ipam",
+      "description": "Public IP address manager",
+      "aliases": ["ip", "elastic-ip", "fip"]
+    },
+    {
+      "id": "domains",
+      "name": "Domains and DNS",
+      "category": "Network",
+      "url": "https://console.scaleway.com/domains",
+      "description": "Domain names and DNS zones",
+      "aliases": ["dns", "domain"]
+    },
+    {
+      "id": "edge-services",
+      "name": "Edge Services",
+      "category": "Network",
+      "url": "https://console.scaleway.com/edge-services",
+      "description": "CDN and edge cache",
+      "aliases": ["cdn", "edge"]
+    },
+    {
+      "id": "interlink",
+      "name": "InterLink",
+      "category": "Network",
+      "url": "https://console.scaleway.com/interlink",
+      "description": "Private interconnect",
+      "aliases": []
+    },
+    {
+      "id": "vpn",
+      "name": "Site-to-Site VPN",
+      "category": "Network",
+      "url": "https://console.scaleway.com/vpn",
+      "description": "IPsec site-to-site VPN",
+      "aliases": ["ipsec", "s2s"]
+    },
+    {
+      "id": "nats",
+      "name": "NATS",
+      "category": "Messaging",
+      "url": "https://console.scaleway.com/mnq/nats",
+      "description": "Managed NATS",
+      "aliases": ["mnq"]
+    },
+    {
+      "id": "queues",
+      "name": "Queues",
+      "category": "Messaging",
+      "url": "https://console.scaleway.com/mnq/queues",
+      "description": "SQS-compatible queues",
+      "aliases": ["sqs"]
+    },
+    {
+      "id": "topics",
+      "name": "Topics and Events",
+      "category": "Messaging",
+      "url": "https://console.scaleway.com/mnq/topics",
+      "description": "SNS-compatible topics",
+      "aliases": ["sns", "events"]
+    },
+    {
+      "id": "iot",
+      "name": "IoT Hub",
+      "category": "Messaging",
+      "url": "https://console.scaleway.com/iot-hub",
+      "description": "MQTT IoT message hub",
+      "aliases": ["mqtt"]
+    },
+    {
+      "id": "rabbitmq",
+      "name": "RabbitMQ",
+      "category": "Messaging",
+      "url": "https://console.scaleway.com/messageq",
+      "description": "Cloud Essentials for RabbitMQ",
+      "aliases": ["messageq", "amqp"]
+    },
+    {
+      "id": "cockpit",
+      "name": "Cockpit",
+      "category": "Observability",
+      "url": "https://console.scaleway.com/cockpit",
+      "description": "Metrics, logs, and traces",
+      "aliases": ["metrics", "logs", "grafana", "observability"]
+    },
+    {
+      "id": "audit-trail",
+      "name": "Audit Trail",
+      "category": "Observability",
+      "url": "https://console.scaleway.com/audit-trail",
+      "description": "API and console audit logs",
+      "aliases": ["audit"]
+    },
+    {
+      "id": "iam",
+      "name": "IAM",
+      "category": "Security",
+      "url": "https://console.scaleway.com/iam",
+      "description": "Users, applications, and policies",
+      "aliases": ["identity", "users", "policy"]
+    },
+    {
+      "id": "api-keys",
+      "name": "API keys",
+      "category": "Security",
+      "url": "https://console.scaleway.com/iam/api-keys",
+      "description": "IAM API keys",
+      "aliases": ["token", "credentials"]
+    },
+    {
+      "id": "secret-manager",
+      "name": "Secret Manager",
+      "category": "Security",
+      "url": "https://console.scaleway.com/secret-manager",
+      "description": "Encrypted secrets",
+      "aliases": ["secrets"]
+    },
+    {
+      "id": "key-manager",
+      "name": "Key Manager",
+      "category": "Security",
+      "url": "https://console.scaleway.com/key-manager",
+      "description": "Encryption keys (KMS)",
+      "aliases": ["kms", "keys"]
+    },
+    {
+      "id": "tem",
+      "name": "Transactional Email",
+      "category": "Platform",
+      "url": "https://console.scaleway.com/transactional-email",
+      "description": "SMTP transactional email",
+      "aliases": ["email", "smtp", "mail"]
+    },
+    {
+      "id": "webhosting",
+      "name": "Web Hosting",
+      "category": "Platform",
+      "url": "https://console.scaleway.com/webhosting",
+      "description": "Managed web hosting",
+      "aliases": ["hosting", "cpanel"]
+    },
+    {
+      "id": "mailbox",
+      "name": "Mailbox",
+      "category": "Platform",
+      "url": "https://console.scaleway.com/mailbox",
+      "description": "Email mailboxes",
+      "aliases": ["mailboxes"]
+    },
+    {
+      "id": "generative-apis",
+      "name": "Generative APIs",
+      "category": "AI",
+      "url": "https://console.scaleway.com/generative-apis",
+      "description": "Hosted LLM inference APIs",
+      "aliases": ["llm", "inference", "ai"]
+    },
+    {
+      "id": "quantum",
+      "name": "Quantum",
+      "category": "AI",
+      "url": "https://console.scaleway.com/quantum",
+      "description": "Quantum computing",
+      "aliases": []
+    }
+  ]
+}

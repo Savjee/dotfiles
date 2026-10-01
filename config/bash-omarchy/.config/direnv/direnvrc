@@ -1,0 +1,3 @@
+# nix-direnv: cache `nix print-dev-env` and GC-root flake shells.
+# Sourced for every direnv load, so `use flake` is the fast implementation.
+source "$HOME/.config/direnv/nix-direnv-3.2.0.direnvrc"

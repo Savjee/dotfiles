@@ -99,6 +99,7 @@ def transferring($stats; $queue; $remote):
           percentage: ($item.percentage | as_num(0)),
           speed: (($item.speedAvg // $item.speed) | as_num(0)),
           eta: ($item.eta | as_num(-1)),
+          tries: ((($queue // {}).queue // []) | map(select(type == "object" and .name == $path)) | (.[0].tries // 0) | as_num(0) | floor),
           direction: (
             if (($item.srcFs // "") | index($fs)) != null
                and (($item.dstFs // "") | index($fs)) == null
@@ -124,7 +125,9 @@ def transferring($stats; $queue; $remote):
           eta: -1,
           direction: "upload",
           queued: ($item.uploading | not),
-          uploading: ($item.uploading == true)
+          uploading: ($item.uploading == true),
+          tries: ($item.tries | as_num(0) | floor),
+          retryIn: ($item.expiry | as_num(-1))
         }
     ]
   | .[:16];

@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REMOTE="${1:-gdrive}"
+[[ $# -le 1 && -n $REMOTE && $REMOTE != */* && $REMOTE != *$'\n'* && $REMOTE != *$'\r'* ]] || {
+  echo "Usage: rclone-setup-gdrive [REMOTE]" >&2
+  exit 2
+}
+MOUNT="${HOME}/Cloud/${REMOTE}"
+
+mkdir -p "$MOUNT" "${HOME}/.config/rclone" "${HOME}/.config/systemd/user"
+chmod 700 "${HOME}/.config/rclone"
+
+if command -v gum >/dev/null 2>&1; then
+  gum style --border rounded --padding "1 2" --width 64 \
+    "Using rclone's default Google Drive app for now.
+
+A browser will open. Sign in with the Google account
+you want mounted.
+
+If rclone asks to keep using the shared client_id: Yes
+If Google says unverified: Advanced → Go to rclone
+Team Drive / shared drive: No (unless you need it)"
+  echo
+else
+  cat <<'EOF'
+Using rclone's default Google Drive app.
+
+A browser will open. Sign in with the Google account you want mounted.
+If asked about the shared client_id: Yes
+If Google says unverified: Advanced → Go to rclone
+Team Drive: No
+EOF
+fi
+
+if rclone listremotes 2>/dev/null | grep -qx "${REMOTE}:"; then
+  rclone config reconnect "${REMOTE}:"
+else
+  rclone config create "$REMOTE" drive scope drive config_is_local true
+fi
+
+chmod 600 "${HOME}/.config/rclone/rclone.conf" 2>/dev/null || true
+
+echo
+echo "Checking that Drive is reachable..."
+rclone about "${REMOTE}:"
+echo
+echo "Top-level folders:"
+rclone lsd "${REMOTE}:"
+
+"$HOME/.local/bin/rclone-mount-enable" "$REMOTE"
+
+echo
+echo "Mounted at ${MOUNT}"
+"$HOME/.local/bin/rclone-mount-control" status "$REMOTE" || true

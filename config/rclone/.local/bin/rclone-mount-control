@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Use the same escaped instance name for spaces, plus signs and punctuation.
+set -euo pipefail
+case ${1:-} in
+  start|stop|restart|status) action=$1 ;;
+  *) printf 'Usage: %s {start|stop|restart|status} REMOTE\n' "${0##*/}" >&2; exit 2 ;;
+esac
+[[ $# == 2 && -n $2 && $2 != */* && $2 != *$'\n'* && $2 != *$'\r'* ]] || {
+  printf '%s\n' 'Specify one remote name without slashes or newlines.' >&2
+  exit 2
+}
+unit=$(systemd-escape --template=rclone-mount@.service -- "$2")
+exec systemctl --user "$action" "$unit"
