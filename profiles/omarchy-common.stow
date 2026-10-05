@@ -1,0 +1,17 @@
+# Personal configuration shared by every Omarchy machine.
+# Hardware and display overrides must never be added here.
+agents
+bash-omarchy
+ghostty-omarchy
+git
+helium
+hypr
+lazygit
+mise
+omarchy
+omarchy-apps
+rclone
+shell
+t3code
+vim
+zed

@@ -1,0 +1,15 @@
+// Mac-style modifiers for Hyprland:
+//   Left Option/Alt → Super (window manager)
+//   Command/Win     → Control (copy, paste, in-app shortcuts)
+// Right Option is left alone so Belgian AltGr still works.
+
+partial modifier_keys
+xkb_symbols "alt_super_cmd_ctrl" {
+    key <LALT> { [ Super_L ], type[Group1] = "ONE_LEVEL" };
+    key <LWIN> { [ Control_L ], type[Group1] = "ONE_LEVEL" };
+    key <RWIN> { [ Control_R ], type[Group1] = "ONE_LEVEL" };
+
+    modifier_map None { <LALT>, <LWIN>, <RWIN> };
+    modifier_map Mod4 { <LALT> };
+    modifier_map Control { <LWIN>, <RWIN> };
+};

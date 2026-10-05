@@ -1,0 +1,33 @@
+[Unit]
+Description=rclone mount for %I
+Documentation=man:rclone(1)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+Environment=RCLONE_CONFIG=%h/.config/rclone/rclone.conf
+ExecStartPre=/usr/bin/mkdir -p %h/Cloud/%I
+ExecStart=/usr/bin/rclone mount %I: %h/Cloud/%I \
+  --config=%h/.config/rclone/rclone.conf \
+  --vfs-cache-mode=full \
+  --vfs-cache-max-size=10G \
+  --vfs-cache-max-age=24h \
+  --vfs-fast-fingerprint \
+  --dir-cache-time=72h \
+  --poll-interval=15s \
+  --umask=022 \
+  --timeout=5m \
+  --tpslimit=10 \
+  --tpslimit-burst=10 \
+  --rc \
+  --rc-addr=unix://%t/rclone-%I.sock \
+  --rc-no-auth
+ExecStop=/usr/bin/fusermount3 -uz %h/Cloud/%I
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=60
+LimitNOFILE=65536
+
+[Install]
+WantedBy=default.target

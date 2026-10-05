@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Keep the routing implementation in one device-specific source file.
+exec "$HOME/.local/bin/kuycon-dp-audio"
