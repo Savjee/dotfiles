@@ -1,0 +1,4 @@
+# Onboard Quectel/MediaTek MT7925 Bluetooth (2c7c:7009).
+# USB autosuspend drops SCO/HFP, which is the AirPods microphone path.
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="2c7c", ATTR{idProduct}=="7009", TEST=="power/control", ATTR{power/control}="on"
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="2c7c", ATTR{idProduct}=="7009", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
