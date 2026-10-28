@@ -33,6 +33,28 @@ sudo darwin-rebuild switch --flake .#mac
 
 Stow still manages configs under `config/` (zsh, aerospace.toml, etc.).
 
+## Shared agent skills (Linux and macOS)
+
+Skills live in `config/agents/.agents/skills/`. The `agents` Stow package also
+links them into `~/.claude/skills/` and `~/.codex/skills/`. OpenCode and Cursor
+discover the shared `~/.agents/skills/` directory directly; T3 Code uses the
+skills of its selected harness.
+
+After cloning or pulling this repository on each machine, run from the repo root:
+
+```bash
+stow --dir=config --target="$HOME" agents
+```
+
+This only installs the shared skills and works independently of the legacy
+macOS installer. GNU Stow must be installed. Start a new agent turn/session
+after linking so the harness discovers the skills.
+
+All nine [tstack skills](docs/tstack/README.md) are imported unchanged.
+Their PR workflows require an authenticated GitHub CLI (`gh`), and
+`babysit-pr` also needs Python 3. `council` and `sol-loop` need a harness
+capable of delegating to the requested providers/models.
+
 ## Automated steps (legacy Homebrew / Stow)
 
 Run `bash install.sh --all` to install everything:
