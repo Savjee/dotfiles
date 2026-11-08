@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REMOTE="${1:?Usage: rclone-setup-sharepoint REMOTE [SITE_URL]}"
+SITE_URL="${2:-}"
+[[ $# -le 2 && -n $REMOTE && $REMOTE != */* && $REMOTE != *$'\n'* && $REMOTE != *$'\r'* ]] || {
+  echo "Usage: rclone-setup-sharepoint REMOTE [SITE_URL]" >&2
+  exit 2
+}
+MOUNT="${HOME}/Cloud/${REMOTE}"
+
+mkdir -p "$MOUNT" "${HOME}/.config/rclone"
+chmod 700 "${HOME}/.config/rclone"
+
+if command -v gum >/dev/null 2>&1; then
+  gum style --border rounded --padding "1 2" --width 72 \
+    "SharePoint setup: ${REMOTE}
+
+A browser will open for Microsoft sign-in.
+Use your company account, then select:
+  • Search for a SharePoint site
+  • ${SITE_URL:-The company site you want}
+  • Its document library
+
+If Microsoft requests administrator approval, your company's Microsoft
+365 administrator must approve rclone before setup can continue."
+  echo
+else
+  printf '%s\n' \
+    "Sign in with your company Microsoft account." \
+    "Select this SharePoint site when prompted:" \
+    "${SITE_URL:-the company site you want}" \
+    "Then select its document library."
+fi
+
+rclone config create "$REMOTE" onedrive config_is_local true
+
+chmod 600 "${HOME}/.config/rclone/rclone.conf" 2>/dev/null || true
+
+echo
+echo "Checking SharePoint access..."
+rclone lsd "${REMOTE}:"
+
+"$HOME/.local/bin/rclone-mount-enable" "$REMOTE" --sharepoint
+
+echo
+echo "Mounted at ${MOUNT}"
+"$HOME/.local/bin/rclone-mount-control" status "$REMOTE" || true

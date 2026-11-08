@@ -1,0 +1,11 @@
+# Legacy macOS profile; excludes all Omarchy/Linux packages.
+aerospace
+agents
+cursor
+flashspace
+ghostty
+lazygit
+shell
+vim
+zed
+zsh

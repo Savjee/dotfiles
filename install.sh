@@ -48,6 +48,11 @@ install_mas_apps() {
 
 # Link dotfiles
 install_dotfiles() {
+    if [[ $(uname -s) != Darwin ]]; then
+        echo "The legacy installer only applies macOS dotfiles."
+        echo "Preview Omarchy profiles with scripts/preview-omarchy-stow.sh instead."
+        return 1
+    fi
     # Check if stow is installed
     if ! command -v stow &> /dev/null; then
         echo "Error: GNU Stow is not installed"
@@ -55,14 +60,14 @@ install_dotfiles() {
         exit 1
     fi
 
-    echo "Stowing dotfiles..."
-    for dir in config/*/; do
-        if [ -d "$dir" ]; then
-            dirname=$(basename "$dir")
-            echo "--> Stowing $dirname..."
-            stow --dir config --target "$HOME" "$dirname"
-        fi
-    done
+    echo "Stowing the explicit macOS profile..."
+    local package
+    local -a packages=()
+    while IFS= read -r package || [[ -n "$package" ]]; do
+        [[ -z "$package" || "$package" == \#* ]] && continue
+        packages+=("$package")
+    done < profiles/macos.stow
+    stow --no-folding --dir config --target "$HOME" "${packages[@]}"
 }
 
 # Install Homebrew if not present
@@ -82,6 +87,11 @@ if [ $# -eq 0 ]; then
     # No arguments passed, show the help message
     usage
 else
+    if [[ $(uname -s) != Darwin ]]; then
+        echo "This legacy Homebrew installer is for macOS only."
+        echo "Preview Omarchy configuration with scripts/preview-omarchy-stow.sh."
+        exit 1
+    fi
     # Initialize and fetch git submodules
     echo "Initializing git submodules..."
     git submodule init
@@ -104,14 +114,14 @@ else
                 install_mas_apps
                 ;;
             --dotfiles)
-                install_dotfiles
+                install_dotfiles || exit 1
                 ;;
             --all)
                 install_homebrew
                 install_brew_packages
                 install_brew_casks
                 install_mas_apps
-                install_dotfiles
+                install_dotfiles || exit 1
                 ;;
             *)
                 echo "Unknown option: $1"

@@ -1,0 +1,20 @@
+[Desktop Entry]
+Name=Helium Browser
+GenericName=Web Browser
+Comment=Browse with the personal launcher and 1Password integration
+Exec=helium-launch %U
+StartupNotify=true
+Terminal=false
+Icon=helium-browser
+Type=Application
+Categories=Network;WebBrowser;
+MimeType=text/html;application/xhtml+xml;application/pdf;x-scheme-handler/http;x-scheme-handler/https;
+Actions=new-window;new-private-window;
+
+[Desktop Action new-window]
+Name=New Window
+Exec=helium-launch
+
+[Desktop Action new-private-window]
+Name=New Incognito Window
+Exec=helium-launch --incognito

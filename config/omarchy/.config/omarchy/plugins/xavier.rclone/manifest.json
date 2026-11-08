@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "xavier.rclone",
+  "name": "rclone",
+  "version": "1.3.0",
+  "author": "xavier",
+  "license": "MIT",
+  "description": "Status, quota, and transfer speed for every rclone mount via the RC API.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "rclone",
+    "description": "Any rclone mount: live RC stats, quota, cache, and transfer progress.",
+    "category": "Files",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "refreshIntervalSec": 2
+    },
+    "schema": [
+      {
+        "key": "refreshIntervalSec",
+        "type": "integer",
+        "label": "Stats refresh interval (seconds)",
+        "min": 1,
+        "max": 60,
+        "step": 1,
+        "defaultValue": 2
+      }
+    ]
+  }
+}

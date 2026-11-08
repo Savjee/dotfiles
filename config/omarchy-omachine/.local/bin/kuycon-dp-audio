@@ -1,0 +1,92 @@
+#!/bin/bash
+# Route the G32P 3.5 mm jack to the HDMI/DP pin that matches the live
+# video connector. After a dual-cable plug, AMD keeps a stale ELD on the
+# unused pin; PipeWire then picks that leftover profile and the jack is silent.
+#
+# DP-1 (full-size DP) -> hdmi-stereo-extra1
+# DP-3 (USB-C Alt Mode) -> hdmi-stereo-extra3
+
+set -euo pipefail
+
+card=alsa_card.pci-0000_c4_00.1
+
+profile_for_connector() {
+  case "$1" in
+    DP-1) echo output:hdmi-stereo-extra1 ;;
+    DP-3) echo output:hdmi-stereo-extra3 ;;
+  esac
+}
+
+connected_kuycon_connector() {
+  local focused
+  focused=$(hyprctl monitors -j 2>/dev/null | jq -r '
+    [.[] | select((.description // "" | test("Kuycon G32P")) and (.disabled | not))]
+    | (map(select(.focused)) + .)
+    | .[0].name // empty
+  ')
+  if [[ -n $focused ]]; then
+    echo "$focused"
+    return
+  fi
+
+  for connector in DP-3 DP-1; do
+    local status_file=/sys/class/drm/card1-$connector/status
+    [[ -f $status_file && $(cat "$status_file") == connected ]] || continue
+    echo "$connector"
+    return
+  done
+}
+
+wait_for_sink() {
+  local needle=$1
+  local i
+  for i in $(seq 1 25); do
+    if pactl -f json list sinks 2>/dev/null | jq -e --arg n "$needle" '
+      [.[] | select(.name | test($n))] | length > 0
+    ' >/dev/null; then
+      return 0
+    fi
+    sleep 0.1
+  done
+  return 1
+}
+
+activate_profile() {
+  local connector profile sink_name node_id
+  connector=$(connected_kuycon_connector)
+  [[ -n $connector ]] || exit 0
+  profile=$(profile_for_connector "$connector")
+  [[ -n $profile ]] || exit 0
+
+  pactl set-card-profile "$card" "$profile"
+  sink_name=alsa_output.pci-0000_c4_00.1.${profile#output:}
+  wait_for_sink "$sink_name"
+
+  node_id=$(pactl -f json list sinks 2>/dev/null | jq -r --arg n "$sink_name" '
+    [.[] | select(.name == $n)][0].properties["object.id"] // empty
+  ')
+  [[ -n $node_id ]] || exit 0
+  omarchy-audio-output-set-default "$node_id" "$sink_name"
+}
+
+watch_hyprland() {
+  local socket=$XDG_RUNTIME_DIR/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock
+  [[ -S $socket ]] || return 0
+  while read -r event; do
+    case "$event" in
+      monitoradded\>\>*|monitoraddedv2\>\>*|monitorremoved\>\>*|monitorremovedv2\>\>*|configreloaded\>\>*)
+        activate_profile || true
+        ;;
+    esac
+  done < <(socat -U - "UNIX-CONNECT:$socket")
+}
+
+case "${1:-}" in
+  --watch)
+    activate_profile || true
+    watch_hyprland
+    ;;
+  *)
+    activate_profile
+    ;;
+esac

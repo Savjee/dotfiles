@@ -1,0 +1,12 @@
+{
+  "active_theme": "ristretto-light",
+  "active_background": ".config/omarchy/backgrounds/ristretto-light/amazing-nature-mountain.jpg",
+  "upstream_themes": [
+    {
+      "slug": "ristretto-light",
+      "url": "https://github.com/brokkoli71/omarchy-ristretto-light-theme",
+      "revision": "e9abefc5088485c994fc708a11f73f48c46457c9"
+    }
+  ],
+  "notes": "Palette, light-mode/icon inputs, CSS overrides and selected wallpaper assets are in the shared omarchy Stow package. Additional local wallpapers and generated theme outputs are not source configuration."
+}
