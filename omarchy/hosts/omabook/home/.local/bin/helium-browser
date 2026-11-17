@@ -7,12 +7,15 @@
 # for Helium only: a copy of the current theme settings with just the font size
 # changed.
 #
-# On Wayland, --force-device-scale-factor multiplies the monitor scale (2), so a
-# value above 1 enlarges Helium and a value below 1 shrinks it. HELIUM_UI_SCALE
-# shrinks the toolbar, icons and pages (keep the default page zoom at 100%).
-# The UI font shrinks with it, so HELIUM_UI_FONT_SIZE is raised to compensate
+# Sharpness: through wp_fractional_scale, Hyprland leaves Chromium at scale 1
+# (devicePixelRatio ~0.9 on this scale-2 screen), so Helium renders at 1x and
+# Hyprland upscales it 2x, which makes everything soft. With the
+# WaylandFractionalScaleV1 feature disabled, Chromium uses the integer output
+# scale and --force-device-scale-factor sets the real render scale:
+# 2 = normal size, 1.7 = 15% smaller and still crisp. Keep the page zoom at 100%.
+# The UI font scales with it, so HELIUM_UI_FONT_SIZE is raised to compensate
 # (9.5 x 0.85 ~ 8pt on screen).
-HELIUM_UI_SCALE=0.85
+HELIUM_UI_SCALE=1.7
 HELIUM_UI_FONT_SIZE=9.5
 
 keyfile="${XDG_CONFIG_HOME:-$HOME/.config}/glib-2.0/settings/keyfile"
@@ -28,4 +31,5 @@ mkdir -p "${keyfile%/*}"
 } >"$keyfile"
 
 export GSETTINGS_BACKEND=keyfile
-exec /usr/bin/helium-browser --force-device-scale-factor="$HELIUM_UI_SCALE" "$@"
+exec /usr/bin/helium-browser --disable-features=WaylandFractionalScaleV1 \
+  --force-device-scale-factor="$HELIUM_UI_SCALE" "$@"

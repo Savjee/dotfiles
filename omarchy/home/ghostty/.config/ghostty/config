@@ -5,6 +5,7 @@ config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
 font-family = "JetBrainsMono Nerd Font"
 font-style = Regular
 font-size = 8
+font-thicken = true
 
 # Window
 window-theme = ghostty
