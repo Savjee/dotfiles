@@ -60,9 +60,11 @@ git clone https://github.com/savjee/dotfiles ~/Projects/dotfiles
 ~/Projects/dotfiles/omarchy/bin/dotfiles apply
 ```
 
-If stow reports existing files, run `dotfiles adopt` to take this machine's versions into
-the repo, then compare with `git diff` and keep what you want (`git checkout -- <file>`
-restores the repo version).
+If stow reports existing files, apply still installs packages, syncs `/etc`, and runs
+`setup.d`. Run `dotfiles adopt` to take this machine's versions into the repo, then
+compare with `git diff` and keep what you want (`git checkout -- <file>` restores the
+repo version). Run `dotfiles apply` again afterwards so anything adopt just linked is
+picked up.
 
 ## omabook keyboard
 

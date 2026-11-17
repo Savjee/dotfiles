@@ -5,9 +5,13 @@
 # Regenerated from the packaged entry on every apply, so package updates come through.
 src=/usr/share/applications/helium.desktop
 dst="$HOME/.local/share/applications/helium.desktop"
+wrapper="$HOME/.local/bin/helium-browser"
 [[ -f $src ]] || exit 0
+# The wrapper is stowed. Skip until it exists so a conflicted apply doesn't
+# point launchers at a missing binary; the next apply rewrites this entry.
+[[ -x $wrapper ]] || exit 0
 
-entry="$(sed "s|^Exec=helium-browser|Exec=$HOME/.local/bin/helium-browser|" "$src")"
+entry="$(sed "s|^Exec=helium-browser|Exec=$wrapper|" "$src")"
 if [[ ! -f $dst || $(<"$dst") != "$entry" ]]; then
   mkdir -p "${dst%/*}"
   printf '%s\n' "$entry" >"$dst"

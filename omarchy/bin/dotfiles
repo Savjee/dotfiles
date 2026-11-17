@@ -104,12 +104,16 @@ cmd_apply() {
 
   bold "==> Linking configs"
   command -v stow >/dev/null || omarchy-pkg-add stow
+  # Link the command before stow can fail. A first apply on Omarchy always
+  # conflicts with files already under ~/.config, and the recovery is `dotfiles adopt`.
+  link_self
+  local stow_failed=false
   if ! run_stow --restow; then
+    stow_failed=true
     err "Stow found files that aren't links into the repo (see above)."
     err "Run 'dotfiles adopt' to take this machine's versions into the repo, then review with git diff."
-    exit 1
+    err "Packages, /etc, and setup.d will still run. After adopt, run 'dotfiles apply' again."
   fi
-  link_self
 
   bold "==> Packages"
   local missing=() repo=() aur=() pkg
@@ -160,6 +164,11 @@ cmd_apply() {
     local errors
     errors="$(hyprctl configerrors)"
     [[ -n ${errors//[[:space:]]/} ]] && err "$errors"
+  fi
+  if $stow_failed; then
+    err "Packages, /etc, and setup.d finished, but some configs are not linked."
+    err "Run 'dotfiles adopt', review with git diff, then 'dotfiles apply' again."
+    exit 1
   fi
   bold "Done."
 }
