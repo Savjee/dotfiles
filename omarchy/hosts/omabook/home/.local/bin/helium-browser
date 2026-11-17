@@ -10,13 +10,12 @@
 # Sharpness: through wp_fractional_scale, Hyprland leaves Chromium at scale 1
 # (devicePixelRatio ~0.9 on this scale-2 screen), so Helium renders at 1x and
 # Hyprland upscales it 2x, which makes everything soft. With the
-# WaylandFractionalScaleV1 feature disabled, Chromium uses the integer output
-# scale and --force-device-scale-factor sets the real render scale:
-# 2 = normal size, 1.7 = 15% smaller and still crisp. Keep the page zoom at 100%.
-# The UI font scales with it, so HELIUM_UI_FONT_SIZE is raised to compensate
-# (9.5 x 0.85 ~ 8pt on screen).
-HELIUM_UI_SCALE=1.7
-HELIUM_UI_FONT_SIZE=9.5
+# WaylandFractionalScaleV1 feature disabled, Chromium renders at the real
+# integer scale (2) and is crisp.
+# Do not add --force-device-scale-factor: with any value other than 2 the
+# content is drawn smaller (or larger) than the window Hyprland gives it.
+# For smaller pages, use Helium's default page zoom instead.
+HELIUM_UI_FONT_SIZE=8
 
 keyfile="${XDG_CONFIG_HOME:-$HOME/.config}/glib-2.0/settings/keyfile"
 schema=org.gnome.desktop.interface
@@ -31,5 +30,4 @@ mkdir -p "${keyfile%/*}"
 } >"$keyfile"
 
 export GSETTINGS_BACKEND=keyfile
-exec /usr/bin/helium-browser --disable-features=WaylandFractionalScaleV1 \
-  --force-device-scale-factor="$HELIUM_UI_SCALE" "$@"
+exec /usr/bin/helium-browser --disable-features=WaylandFractionalScaleV1 "$@"
