@@ -3,5 +3,6 @@
 # repos, or from the AUR when no repo has them. Nothing is ever removed.
 1password
 1password-cli
+ghostty
 plezy-bin
 stow
