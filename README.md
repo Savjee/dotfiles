@@ -1,6 +1,8 @@
 # dotfiles
 
-My personal configuration for macOS.
+My personal configuration for macOS and Omarchy.
+
+Omarchy (Linux) lives in [`omarchy/`](omarchy/README.md): run `omarchy/bin/dotfiles apply`.
 
 ## Nix (nix-darwin + Home Manager)
 

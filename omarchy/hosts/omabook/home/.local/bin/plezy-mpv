@@ -1,0 +1,10 @@
+#!/bin/bash
+# External player for Plezy: run the system mpv without Plezy's bundled libraries.
+#
+# /usr/bin/plezy sets LD_LIBRARY_PATH=/opt/plezy/lib (plus GTK/GIO paths), and every
+# process Plezy starts inherits that. The system mpv then loads Plezy's older
+# libstdc++/libmpg123 and dies before opening a window. Set this script as a custom
+# external player in Plezy (Settings > External player).
+unset LD_LIBRARY_PATH LD_PRELOAD GDK_PIXBUF_MODULE_FILE GIO_MODULE_DIR \
+  GIO_LAUNCH_DESKTOP GTK_IM_MODULE_FILE GTK_PATH GSETTINGS_SCHEMA_DIR
+exec /usr/bin/mpv "$@"

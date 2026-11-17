@@ -1,0 +1,271 @@
+#!/bin/bash
+# Apply and inspect the Omarchy part of the dotfiles repo on this machine.
+#
+#   dotfiles apply     pull, link configs, install missing packages, sync /etc, run setup.d
+#   dotfiles status    what changed, what Omarchy overwrote, what's missing
+#   dotfiles capture   packages installed here that aren't in any list yet
+#   dotfiles adopt     take this machine's versions of tracked files into the repo
+#
+# Layout (relative to the repo root):
+#   config/<pkg>                  stow packages shared with macOS (agents, shell, vim)
+#   omarchy/home/<pkg>            stow packages for every Omarchy machine
+#   omarchy/hosts/<host>/home     stow package for one machine (by hostname)
+#   omarchy/etc, hosts/<host>/etc files copied to /etc with sudo
+#   omarchy/packages.txt, hosts/<host>/packages.txt
+#   omarchy/setup.d/*, hosts/<host>/setup.d/*   idempotent scripts for things that aren't files
+set -uo pipefail
+
+ROOT="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/../.." && pwd)"
+OMARCHY="$ROOT/omarchy"
+HOST="$(cat /etc/hostname 2>/dev/null || uname -n)"
+HOST_DIR="$OMARCHY/hosts/$HOST"
+COMMON_PACKAGES=(agents shell vim)
+
+bold() { printf '\033[1m%s\033[0m\n' "$*"; }
+warn() { printf '\033[33m%s\033[0m\n' "$*"; }
+err() { printf '\033[31m%s\033[0m\n' "$*" >&2; }
+
+# "stow-dir package [extra stow flags]" per line.
+stow_units() {
+  local pkg
+  for pkg in "${COMMON_PACKAGES[@]}"; do
+    echo "$ROOT/config $pkg"
+  done
+  for pkg in "$OMARCHY"/home/*/; do
+    pkg="${pkg%/}"
+    echo "$OMARCHY/home ${pkg##*/} --no-folding"
+  done
+  if [[ -d $HOST_DIR/home ]]; then
+    echo "$HOST_DIR home --no-folding"
+  fi
+}
+
+run_stow() {
+  local status=0 dir pkg flags
+  while read -r dir pkg flags; do
+    # shellcheck disable=SC2086
+    if ! stow --dir="$dir" --target="$HOME" $flags "$@" "$pkg"; then
+      status=1
+    fi
+  done < <(stow_units)
+  return $status
+}
+
+# Every file a stow unit tracks, as "source<TAB>target".
+tracked_files() {
+  local dir pkg flags src
+  while read -r dir pkg flags; do
+    while IFS= read -r -d '' src; do
+      printf '%s\t%s\n' "$src" "$HOME/${src#"$dir/$pkg/"}"
+    done < <(find "$dir/$pkg" \( -type f -o -type l \) -print0)
+  done < <(stow_units)
+}
+
+# Every /etc file, as "source<TAB>target".
+etc_files() {
+  local base src
+  for base in "$OMARCHY/etc" "$HOST_DIR/etc"; do
+    [[ -d $base ]] || continue
+    while IFS= read -r -d '' src; do
+      printf '%s\t%s\n' "$src" "/etc/${src#"$base/"}"
+    done < <(find "$base" -type f -print0)
+  done
+}
+
+package_list() {
+  local file
+  for file in "$OMARCHY/packages.txt" "$HOST_DIR/packages.txt"; do
+    [[ -f $file ]] && sed 's/#.*//; s/[[:space:]]//g; /^$/d' "$file"
+  done | sort -u
+}
+
+missing_packages() {
+  local pkg
+  for pkg in $(package_list); do
+    pacman -Q "$pkg" &>/dev/null || echo "$pkg"
+  done
+}
+
+link_self() {
+  mkdir -p "$HOME/.local/bin"
+  ln -sfn "$OMARCHY/bin/dotfiles" "$HOME/.local/bin/dotfiles"
+}
+
+cmd_apply() {
+  bold "==> Host: $HOST"
+  [[ -d $HOST_DIR ]] || warn "No omarchy/hosts/$HOST yet: only shared config is applied."
+
+  if [[ -z $(git -C "$ROOT" status --porcelain) ]]; then
+    bold "==> git pull"
+    git -C "$ROOT" pull --ff-only || warn "git pull failed; applying what's checked out."
+  else
+    warn "==> Local changes in the repo: skipping git pull (commit or stash first to pull)."
+  fi
+
+  bold "==> Linking configs"
+  command -v stow >/dev/null || omarchy-pkg-add stow
+  # Link the command before stow can fail. A first apply on Omarchy always
+  # conflicts with files already under ~/.config, and the recovery is `dotfiles adopt`.
+  link_self
+  local stow_failed=false
+  if ! run_stow --restow; then
+    stow_failed=true
+    err "Stow found files that aren't links into the repo (see above)."
+    err "Run 'dotfiles adopt' to take this machine's versions into the repo, then review with git diff."
+    err "Packages, /etc, and setup.d will still run. After adopt, run 'dotfiles apply' again."
+  fi
+
+  bold "==> Packages"
+  local missing=() repo=() aur=() pkg
+  mapfile -t missing < <(missing_packages)
+  for pkg in "${missing[@]}"; do
+    if pacman -Si "$pkg" &>/dev/null; then repo+=("$pkg"); else aur+=("$pkg"); fi
+  done
+  ((${#repo[@]})) && omarchy-pkg-add "${repo[@]}"
+  ((${#aur[@]})) && omarchy-pkg-aur-add "${aur[@]}"
+  ((${#missing[@]})) || echo "all installed"
+
+  bold "==> /etc"
+  local src dst rebuild_initramfs=false changed=false
+  while IFS=$'\t' read -r src dst; do
+    if [[ -r $dst ]] && cmp -s "$src" "$dst"; then
+      continue
+    elif [[ -e $dst && ! -r $dst ]] && sudo cmp -s "$src" "$dst"; then
+      continue
+    else
+      changed=true
+      echo "updating $dst"
+      sudo diff -u "$dst" "$src" 2>/dev/null || true
+      sudo install -D -o root -g root -m "$(stat -c %a "$src")" "$src" "$dst"
+      [[ $dst == /etc/modprobe.d/* ]] && rebuild_initramfs=true
+    fi
+  done < <(etc_files)
+  $changed || echo "up to date"
+  if $rebuild_initramfs; then
+    bold "==> Rebuilding initramfs (modprobe.d changed); reboot to apply"
+    # With Limine (ENABLE_UKI=yes) the boot entry is a UKI on the ESP, which
+    # `mkinitcpio -P` does not touch; limine-mkinitcpio rebuilds and installs it.
+    if command -v limine-mkinitcpio >/dev/null; then
+      sudo limine-mkinitcpio
+    else
+      sudo mkinitcpio -P
+    fi
+  fi
+
+  bold "==> setup.d"
+  local script
+  for script in "$OMARCHY"/setup.d/* "$HOST_DIR"/setup.d/*; do
+    [[ -x $script ]] && "$script"
+  done
+
+  if [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]]; then
+    bold "==> Reloading Hyprland"
+    hyprctl reload >/dev/null
+    local errors
+    errors="$(hyprctl configerrors)"
+    [[ -n ${errors//[[:space:]]/} ]] && err "$errors"
+  fi
+  if $stow_failed; then
+    err "Packages, /etc, and setup.d finished, but some configs are not linked."
+    err "Run 'dotfiles adopt', review with git diff, then 'dotfiles apply' again."
+    exit 1
+  fi
+  bold "Done."
+}
+
+cmd_status() {
+  bold "Host: $HOST  (repo: $ROOT)"
+
+  bold "Repo changes:"
+  git -C "$ROOT" status --short | sed 's/^/  /'
+
+  bold "Tracked files:"
+  local src dst problems=0
+  while IFS=$'\t' read -r src dst; do
+    if [[ -L $src ]]; then
+      continue # symlinks inside the repo (agents skills) are linked as-is
+    elif [[ -e $dst && $(readlink -f "$dst") == "$(readlink -f "$src")" ]]; then
+      continue # linked directly or through a linked parent directory
+    elif [[ ! -e $dst ]]; then
+      echo "  not linked:  ${dst/#$HOME/\~}"
+    elif cmp -s "$src" "$dst"; then
+      echo "  not linked (same content): ${dst/#$HOME/\~}"
+    else
+      warn "  overwritten: ${dst/#$HOME/\~}  (changed outside the repo, e.g. by an omarchy command)"
+    fi
+    problems=1
+  done < <(tracked_files)
+  ((problems)) && echo "  -> 'dotfiles adopt' takes this machine's versions into the repo; 'dotfiles apply' links the rest." || echo "  all linked"
+
+  bold "Packages:"
+  local missing
+  missing="$(missing_packages | tr '\n' ' ')"
+  [[ -n $missing ]] && echo "  missing: $missing" || echo "  all installed"
+  local new
+  new="$(new_packages | tr '\n' ' ')"
+  [[ -n $new ]] && echo "  not in any list: $new  (-> dotfiles capture)"
+
+  bold "/etc:"
+  local differs=false
+  while IFS=$'\t' read -r src dst; do
+    if [[ ! -e $dst ]]; then
+      echo "  missing: $dst"; differs=true
+    elif [[ -r $dst ]] && ! cmp -s "$src" "$dst"; then
+      echo "  differs: $dst"; differs=true
+    fi
+  done < <(etc_files)
+  $differs || echo "  up to date"
+}
+
+# Explicitly installed packages that Omarchy doesn't install and no list mentions.
+new_packages() {
+  local known
+  known="$(
+    {
+      sed 's/#.*//' /usr/share/omarchy/install/*.packages 2>/dev/null | tr -s ' \t' '\n'
+      package_list
+      [[ -f $HOST_DIR/packages.ignore ]] && sed 's/#.*//' "$HOST_DIR/packages.ignore"
+    } | sed 's/[[:space:]]//g; /^$/d' | sort -u
+  )"
+  comm -23 <(pacman -Qqe | sort) <(echo "$known")
+}
+
+cmd_capture() {
+  local pkgs=() pkg choice
+  mapfile -t pkgs < <(new_packages)
+  if ((${#pkgs[@]} == 0)); then
+    echo "Every explicitly installed package is in a list (or ignored)."
+    return
+  fi
+  mkdir -p "$HOST_DIR"
+  echo "For each package: [a]ll machines, [h]ost $HOST only, [i]gnore on $HOST, [s]kip"
+  for pkg in "${pkgs[@]}"; do
+    read -r -p "  $pkg ($(pacman -Qi "$pkg" | sed -n 's/^Description *: //p')) [a/h/i/s] " choice </dev/tty
+    case $choice in
+      a) echo "$pkg" >>"$OMARCHY/packages.txt" ;;
+      h) echo "$pkg" >>"$HOST_DIR/packages.txt" ;;
+      i) echo "$pkg" >>"$HOST_DIR/packages.ignore" ;;
+    esac
+  done
+  git -C "$ROOT" diff --stat -- omarchy
+}
+
+cmd_adopt() {
+  warn "Taking this machine's versions of tracked files into the repo (stow --adopt)."
+  run_stow --adopt || exit 1
+  run_stow --restow || exit 1
+  link_self
+  git -C "$ROOT" diff --stat
+  echo "Review with 'git diff'. Keep the repo version of a file with 'git checkout -- <file>'."
+}
+
+case "${1:-}" in
+  apply) cmd_apply ;;
+  status) cmd_status ;;
+  capture) cmd_capture ;;
+  adopt) cmd_adopt ;;
+  *)
+    sed -n '2,8p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'
+    exit 1
+    ;;
+esac

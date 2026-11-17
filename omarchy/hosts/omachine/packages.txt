@@ -1,0 +1,4 @@
+# Minisforum mini PC (x86_64) only.
+# Run `dotfiles capture` on omachine to fill this in.
+# The helium-browser wrapper in this host expects /opt/helium-browser-beta-bin.
+helium-browser-beta-bin

@@ -1,0 +1,8 @@
+# Packages for every Omarchy machine, on top of what Omarchy installs itself.
+# One per line. `dotfiles apply` installs missing ones from the Arch/Omarchy
+# repos, or from the AUR when no repo has them. Nothing is ever removed.
+1password
+1password-cli
+ghostty
+plezy-bin
+stow
