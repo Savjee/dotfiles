@@ -1,0 +1,4 @@
+# MacBook Pro M2 (Asahi, aarch64) only.
+fprintd
+helium-browser-bin
+libfprint-git

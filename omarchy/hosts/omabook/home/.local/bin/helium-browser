@@ -1,0 +1,31 @@
+#!/bin/bash
+# Start Helium with a smaller UI (toolbar, icons, tabs, menus) on the MacBook display.
+#
+# Helium (Chromium) takes its UI font from GTK but ignores the text-scaling-factor
+# that `omarchy display text size` sets, so its UI comes out much larger than the
+# rest of the desktop. To fix the font, point GLib at a keyfile settings backend
+# for Helium only: a copy of the current theme settings with just the font size
+# changed.
+#
+# On Wayland, --force-device-scale-factor multiplies the monitor scale (2), so a
+# value above 1 enlarges Helium and a value below 1 shrinks it. HELIUM_UI_SCALE
+# shrinks the toolbar, icons and pages (keep the default page zoom at 100%).
+# The UI font shrinks with it, so HELIUM_UI_FONT_SIZE is raised to compensate
+# (9.5 x 0.85 ~ 8pt on screen).
+HELIUM_UI_SCALE=0.85
+HELIUM_UI_FONT_SIZE=9.5
+
+keyfile="${XDG_CONFIG_HOME:-$HOME/.config}/glib-2.0/settings/keyfile"
+schema=org.gnome.desktop.interface
+font="$(gsettings get $schema font-name | tr -d "'")"
+mkdir -p "${keyfile%/*}"
+{
+  echo "[${schema//.//}]"
+  for key in gtk-theme icon-theme cursor-theme cursor-size color-scheme; do
+    echo "$key=$(gsettings get $schema "$key")"
+  done
+  echo "font-name='${font% *} $HELIUM_UI_FONT_SIZE'"
+} >"$keyfile"
+
+export GSETTINGS_BACKEND=keyfile
+exec /usr/bin/helium-browser --force-device-scale-factor="$HELIUM_UI_SCALE" "$@"

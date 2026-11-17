@@ -1,0 +1,26 @@
+// Belgian layout for the Apple (ISO) keyboard on the MacBook (Asahi).
+// - The key left of 1 is printed "@ #" on Apple Belgian keyboards.
+// - Modifiers: Omarchy shortcuts in the desktop position, app shortcuts like macOS.
+//   Needs the kernel option hid_apple.swap_ctrl_cmd=1 (/etc/modprobe.d/hid_apple.conf),
+//   so Cmd sends a real Ctrl keycode (Chromium/Helium ignore xkb-only remaps for Ctrl).
+//   With that, the kernel sends: Ctrl->LWIN, Option->LALT, Cmd->LCTL, right Cmd->RCTL.
+//     Cmd          -> Ctrl   (apps: Cmd+T, Cmd+C, Cmd+L, ...)   [kernel]
+//     Option       -> Super  (Omarchy: Option+W close, Option+Return terminal, ...)
+//     Ctrl         -> Alt
+//     right Cmd / right Option -> AltGr ({ [ \ | ~ € ...)
+// Used per-device from ~/.config/hypr/input.lua.
+
+default partial alphanumeric_keys modifier_keys
+xkb_symbols "basic" {
+    include "be(basic)"
+    name[Group1] = "Belgian (Apple)";
+
+    key <TLDE> {[ at, numbersign, twosuperior, threesuperior ]};
+
+    replace key <LALT> { type[Group1] = "ONE_LEVEL", [ Super_L ] };
+    replace key <LWIN> { type[Group1] = "TWO_LEVEL", [ Alt_L, Meta_L ] };
+    replace key <RCTL> { type[Group1] = "ONE_LEVEL", [ ISO_Level3_Shift ] };
+    modifier_map Mod4 { <LALT> };
+    modifier_map Mod1 { <LWIN> };
+    modifier_map Mod5 { <RCTL> };
+};

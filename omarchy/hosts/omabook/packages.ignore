@@ -1,0 +1,29 @@
+# Explicitly installed packages `dotfiles capture` should not suggest
+# (hardware/platform packages the Asahi installer put there).
+alsa-ucm-conf-aurora
+archlinuxarm-keyring
+asahi-alarm-keyring
+asahi-fwextract
+asahi-scripts
+aurora-audio
+aurora-bless
+curl
+dotnet-runtime-bin
+e2fsprogs
+ex-vi-compat
+gnupg
+iwd
+linux-aurora
+linux-aurora-headers
+m1n1-aurora
+mesa-aurora
+mkinitcpio
+neovim
+omarchy
+omarchy-aurora-firmware
+omarchy-settings
+speakerguardd
+sudo
+uboot-aurora
+usbutils
+vulkan-aurora
